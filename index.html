@@ -138,6 +138,23 @@
     @media (max-width: 640px) {
       .hero-content { padding-top: 5rem; }
     }
+    /* Mobile menu slide-in */
+    .mobile-menu-panel {
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu-panel.open {
+      transform: translateX(0);
+    }
+    .mobile-menu-overlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .mobile-menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
   </style>
 </head>
 <body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
@@ -154,29 +171,88 @@
         </div>
       </a>
     </div>
+
+    <!-- Desktop Navigation -->
     <nav class="hidden xl:flex items-center gap-8 text-sm">
       <a class="uppercase tracking-widest text-[#C8924B] font-semibold border-b border-[#C8924B] pb-1" href="index.html">Home</a>
       <a class="uppercase tracking-widest text-zinc-300 hover:text-white transition-colors duration-200" href="about.html">About Us</a>
       <a class="uppercase tracking-widest text-zinc-300 hover:text-white transition-colors duration-200" href="pro.html">Available Properties</a>
       <a class="uppercase tracking-widest text-zinc-300 hover:text-white transition-colors duration-200" href="contact.html">Contact Us</a>
     </nav>
-    <div class="flex items-center gap-4">
+
+    <div class="flex items-center gap-3">
       <div class="hidden lg:flex flex-col items-end text-right">
         <span class="text-xs text-white font-medium tracking-wider">+234 803 000 8899</span>
         <span class="text-[10px] text-zinc-400 uppercase tracking-widest">Ikoyi, Lagos</span>
       </div>
-      <button id="consultBtn" class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md">
+      <button id="consultBtn" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md">
         <span class="material-symbols-outlined text-[18px] mr-1">support_agent</span> Consultation
+      </button>
+
+      <!-- MOBILE MENU BUTTON (hamburger) -->
+      <button id="mobileMenuBtn" class="xl:hidden w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors" aria-label="Open menu">
+        <span class="material-symbols-outlined text-[24px]">menu</span>
       </button>
     </div>
   </div>
 </header>
 
+<!-- ========== MOBILE MENU OVERLAY + PANEL ========== -->
+<div id="mobileMenuOverlay" class="mobile-menu-overlay fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm xl:hidden"></div>
+
+<div id="mobileMenuPanel" class="mobile-menu-panel fixed top-0 right-0 z-[70] h-full w-[85%] max-w-sm bg-[#121316] border-l border-white/10 shadow-2xl xl:hidden flex flex-col">
+  <!-- Header of panel -->
+  <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+    <div class="flex items-center gap-3">
+      <img alt="FML Properties Logo" class="h-7 w-auto object-contain brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMP3HgGQSlwC82iUW4YpeFUVfTL_Et1RScxDo7Z6YZ7n7KL2U48CWmlCdH7xr9enzTeQbyTtHSN4m_qZ4nZQk_2fKGYKaxwtXy-CLXLA-VyF1BrY1LawrI9ry947Wo64QJkW-ZiOw2uB2eufdA5ctRERfFR2rWOV5eu-ZXNk3JNeWC7I7637FVYYQO6vy0ke7SnnA3s0FofMgvfPgEmpEkQkWM9tRYGuKEo0gmFrQORuvde0CSTkED"/>
+      <span class="text-white font-headline-sm text-sm tracking-wider font-semibold">FML PROPERTIES</span>
+    </div>
+    <button id="closeMobileMenuBtn" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white transition-colors" aria-label="Close menu">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+  </div>
+
+  <!-- Navigation Links -->
+  <nav class="flex flex-col px-6 py-8 gap-1 text-sm">
+    <a href="index.html" class="flex items-center justify-between py-4 border-b border-white/5 text-[#C8924B] font-semibold uppercase tracking-widest">
+      <span>Home</span>
+      <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+    </a>
+    <a href="about.html" class="flex items-center justify-between py-4 border-b border-white/5 text-zinc-200 hover:text-[#C8924B] uppercase tracking-widest transition-colors">
+      <span>About Us</span>
+      <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+    </a>
+    <a href="pro.html" class="flex items-center justify-between py-4 border-b border-white/5 text-zinc-200 hover:text-[#C8924B] uppercase tracking-widest transition-colors">
+      <span>Available Properties</span>
+      <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+    </a>
+    <a href="contact.html" class="flex items-center justify-between py-4 border-b border-white/5 text-zinc-200 hover:text-[#C8924B] uppercase tracking-widest transition-colors">
+      <span>Contact Us</span>
+      <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+    </a>
+  </nav>
+
+  <!-- Contact info & Consultation button -->
+  <div class="px-6 py-6 mt-auto border-t border-white/10">
+    <div class="flex items-center gap-3 text-xs text-zinc-400 mb-2">
+      <span class="material-symbols-outlined text-[#C8924B] text-[16px]">phone</span>
+      <span>+234 803 000 8899</span>
+    </div>
+    <div class="flex items-center gap-3 text-xs text-zinc-400 mb-5">
+      <span class="material-symbols-outlined text-[#C8924B] text-[16px]">location_on</span>
+      <span>Ikoyi, Lagos &amp; Maitama, Abuja</span>
+    </div>
+    <button id="mobileConsultBtn" class="w-full inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-md">
+      <span class="material-symbols-outlined text-[18px] mr-2">support_agent</span>
+      Schedule Consultation
+    </button>
+  </div>
+</div>
+
 <main class="w-full bg-background min-h-screen">
 
   <!-- ========== HERO SECTION WITH AUTOPLAY VIDEO ========== -->
   <section class="relative w-full pt-32 pb-36 lg:pb-44 bg-[#121316] text-white overflow-hidden">
-    <!-- AUTOPLAY VIDEO: muted + playsinline + autoplay + loop + preload=auto. Fallback JS in script below -->
     <video id="heroVideo" class="video-hero" autoplay muted loop playsinline preload="auto" webkit-playsinline>
       <source src="FML.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -934,22 +1010,18 @@
     const video = document.getElementById('heroVideo');
     if (!video) return;
 
-    // Ensure muted and playsinline for mobile autoplay policies
     video.muted = true;
     video.playsInline = true;
     video.setAttribute('playsinline', '');
     video.setAttribute('webkit-playsinline', '');
 
-    // Try to play as soon as possible
     const playAttempt = () => {
       const p = video.play();
       if (p !== undefined) {
         p.then(() => {
-          // autoplay started
           console.log('Hero video autoplay started');
         }).catch(err => {
           console.warn('Autoplay was prevented:', err);
-          // Fallback: attach a one-time user interaction listener to start playback
           const startOnInteraction = () => {
             video.play().catch(e => console.warn('Play on interaction failed:', e));
             document.removeEventListener('click', startOnInteraction);
@@ -963,18 +1035,57 @@
       }
     };
 
-    // If the video is already loaded, try immediately
     if (video.readyState >= 2) {
       playAttempt();
     } else {
       video.addEventListener('loadeddata', playAttempt, { once: true });
     }
 
-    // Also attempt on window load (covers cases where loadeddata already fired)
     window.addEventListener('load', playAttempt);
-
-    // Some browsers need a small delay / canplay event
     video.addEventListener('canplay', playAttempt, { once: true });
+  })();
+
+  // ---- MOBILE MENU ----
+  (function() {
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const panel = document.getElementById('mobileMenuPanel');
+    const overlay = document.getElementById('mobileMenuOverlay');
+    const closeBtn = document.getElementById('closeMobileMenuBtn');
+    const mobileConsultBtn = document.getElementById('mobileConsultBtn');
+
+    function openMenu() {
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (overlay) overlay.addEventListener('click', closeMenu);
+
+    // Close menu when a link is clicked
+    panel.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Consultation from mobile menu → open the modal and close menu
+    if (mobileConsultBtn) {
+      mobileConsultBtn.addEventListener('click', function() {
+        closeMenu();
+        // Open modal
+        const modal = document.getElementById('consultModal');
+        if (modal) {
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    }
   })();
 
   // ---- CONSULTATION MODAL ----
@@ -993,8 +1104,8 @@
       document.body.style.overflow = '';
     }
 
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
     modal.addEventListener('click', function(e) {
       if (e.target === modal) {
