@@ -1,566 +1,988 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>FML Properties — Sovereign Real Estate</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <!-- Tailwind + config (inline for portability) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "outline-variant": "#d4c4b3",
+            "secondary-container": "#e2e2e8",
+            "on-surface-variant": "#504538",
+            "background": "#fcf9f4",
+            "on-secondary-fixed-variant": "#45474b",
+            "inverse-surface": "#31302d",
+            "surface-tint": "#815512",
+            "surface-container": "#f0ede9",
+            "outline": "#827567",
+            "on-tertiary-container": "#4c2e00",
+            "surface-container-high": "#ebe8e3",
+            "secondary-fixed": "#e2e2e8",
+            "surface-dim": "#dcdad5",
+            "inverse-on-surface": "#f3f0eb",
+            "error-container": "#ffdad6",
+            "tertiary": "#805619",
+            "on-tertiary-fixed": "#2a1700",
+            "primary-container": "#c8924b",
+            "on-background": "#1c1c19",
+            "tertiary-container": "#c69351",
+            "on-primary-container": "#4b2d00",
+            "primary": "#815512",
+            "secondary": "#5d5e63",
+            "surface-container-low": "#f6f3ee",
+            "on-secondary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#653e01",
+            "secondary-fixed-dim": "#c6c6cb",
+            "inverse-primary": "#f7bb70",
+            "tertiary-fixed-dim": "#f5bc76",
+            "on-secondary-fixed": "#1a1c20",
+            "on-primary-fixed": "#2a1700",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#e5e2dd",
+            "primary-fixed-dim": "#f7bb70",
+            "tertiary-fixed": "#ffddb7",
+            "surface-variant": "#e5e2dd",
+            "surface-bright": "#fcf9f4",
+            "primary-fixed": "#ffddb7",
+            "on-error-container": "#93000a",
+            "on-primary-fixed-variant": "#653e00",
+            "error": "#ba1a1a",
+            "on-surface": "#1c1c19",
+            "surface": "#fcf9f4",
+            "on-secondary-container": "#636469",
+            "surface-container-lowest": "#ffffff",
+            "dark-surface": "#121316",
+            "dark-container": "#1e1f24",
+            "dark-high": "#2a2b32"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter": "1.5rem",
+            "margin-mobile": "1.25rem",
+            "space-xl": "3.5rem",
+            "space-xs": "0.375rem",
+            "gutter-mobile": "1rem",
+            "space-sm": "0.75rem",
+            "space-lg": "2rem",
+            "space-md": "1.25rem",
+            "space-2xl": "6rem",
+            "margin": "4rem"
+          },
+          fontFamily: {
+            "label-uppercase": ["Plus Jakarta Sans"],
+            "headline-lg": ["Playfair Display"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Playfair Display"],
+            "display-hero": ["Playfair Display"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Playfair Display"],
+            "label-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-xl": ["Playfair Display"],
+            "display-hero-mobile": ["Playfair Display"],
+            "metric-huge": ["Playfair Display"]
+          },
+          fontSize: {
+            "label-uppercase": ["0.75rem", { lineHeight: "1rem", letterSpacing: "0.15em", fontWeight: "700" }],
+            "headline-lg": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.01em", fontWeight: "500" }],
+            "body-lg": ["1.125rem", { lineHeight: "1.75rem", fontWeight: "400" }],
+            "headline-xl-mobile": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "display-hero": ["3.75rem", { lineHeight: "4.25rem", letterSpacing: "-0.02em", fontWeight: "600" }],
+            "body-sm": ["0.875rem", { lineHeight: "1.4rem", fontWeight: "400" }],
+            "headline-md": ["1.5rem", { lineHeight: "2rem", fontWeight: "500" }],
+            "label-md": ["0.875rem", { lineHeight: "1.25rem", fontWeight: "600" }],
+            "headline-sm": ["1.125rem", { lineHeight: "1.6rem", fontWeight: "600" }],
+            "body-md": ["1rem", { lineHeight: "1.6rem", fontWeight: "400" }],
+            "headline-xl": ["2.75rem", { lineHeight: "3.25rem", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "display-hero-mobile": ["2.5rem", { lineHeight: "3rem", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "metric-huge": ["4.5rem", { lineHeight: "4.5rem", letterSpacing: "-0.02em", fontWeight: "600" }]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    /* video overlay */
+    .video-hero {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    /* mobile spacing fixes */
+    @media (max-width: 640px) {
+      .hero-content { padding-top: 5rem; }
+    }
+  </style>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"outline-variant":"#d4c4b3","secondary-container":"#e2e2e8","on-surface-variant":"#504538","background":"#fcf9f4","on-secondary-fixed-variant":"#45474b","inverse-surface":"#31302d","surface-tint":"#815512","surface-container":"#f0ede9","outline":"#827567","on-tertiary-container":"#4c2e00","surface-container-high":"#ebe8e3","secondary-fixed":"#e2e2e8","surface-dim":"#dcdad5","inverse-on-surface":"#f3f0eb","error-container":"#ffdad6","tertiary":"#805619","on-tertiary-fixed":"#2a1700","primary-container":"#c8924b","on-background":"#1c1c19","tertiary-container":"#c69351","on-primary-container":"#4b2d00","primary":"#815512","secondary":"#5d5e63","surface-container-low":"#f6f3ee","on-secondary":"#ffffff","on-error":"#ffffff","on-tertiary":"#ffffff","on-tertiary-fixed-variant":"#653e01","secondary-fixed-dim":"#c6c6cb","inverse-primary":"#f7bb70","tertiary-fixed-dim":"#f5bc76","on-secondary-fixed":"#1a1c20","on-primary-fixed":"#2a1700","on-primary":"#ffffff","surface-container-highest":"#e5e2dd","primary-fixed-dim":"#f7bb70","tertiary-fixed":"#ffddb7","surface-variant":"#e5e2dd","surface-bright":"#fcf9f4","primary-fixed":"#ffddb7","on-error-container":"#93000a","on-primary-fixed-variant":"#653e00","error":"#ba1a1a","on-surface":"#1c1c19","surface":"#fcf9f4","on-secondary-container":"#636469","surface-container-lowest":"#ffffff","dark-surface":"#121316","dark-container":"#1e1f24","dark-high":"#2a2b32"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","margin-mobile":"1.25rem","space-xl":"3.5rem","space-xs":"0.375rem","gutter-mobile":"1rem","space-sm":"0.75rem","space-lg":"2rem","space-md":"1.25rem","space-2xl":"6rem","margin":"4rem"},fontFamily:{"label-uppercase":["Plus Jakarta Sans"],"headline-lg":["Playfair Display"],"body-lg":["Plus Jakarta Sans"],"headline-xl-mobile":["Playfair Display"],"display-hero":["Playfair Display"],"body-sm":["Plus Jakarta Sans"],"headline-md":["Playfair Display"],"label-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-xl":["Playfair Display"],"display-hero-mobile":["Playfair Display"],"metric-huge":["Playfair Display"]},fontSize:{"label-uppercase":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.15em","fontWeight":"700"}],"headline-lg":["2rem",{"lineHeight":"2.5rem","letterSpacing":"-0.01em","fontWeight":"500"}],"body-lg":["1.125rem",{"lineHeight":"1.75rem","fontWeight":"400"}],"headline-xl-mobile":["2rem",{"lineHeight":"2.5rem","letterSpacing":"-0.01em","fontWeight":"600"}],"display-hero":["3.75rem",{"lineHeight":"4.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["0.875rem",{"lineHeight":"1.4rem","fontWeight":"400"}],"headline-md":["1.5rem",{"lineHeight":"2rem","fontWeight":"500"}],"label-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"600"}],"headline-sm":["1.125rem",{"lineHeight":"1.6rem","fontWeight":"600"}],"body-md":["1rem",{"lineHeight":"1.6rem","fontWeight":"400"}],"headline-xl":["2.75rem",{"lineHeight":"3.25rem","letterSpacing":"-0.015em","fontWeight":"600"}],"display-hero-mobile":["2.5rem",{"lineHeight":"3rem","letterSpacing":"-0.01em","fontWeight":"600"}],"metric-huge":["4.5rem",{"lineHeight":"4.5rem","letterSpacing":"-0.02em","fontWeight":"600"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
-<!-- DARK HEADER -->
+<!-- ========== DARK HEADER ========== -->
 <header class="fixed top-0 w-full z-50 bg-[#121316]/90 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
-<div class="h-20 max-w-[1440px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md">
-<div class="flex items-center gap-space-md">
-<a class="flex items-center gap-3" data-path="home" href="#">
-<img alt="FML Properties Logo" class="h-8 w-auto object-contain brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMP3HgGQSlwC82iUW4YpeFUVfTL_Et1RScxDo7Z6YZ7n7KL2U48CWmlCdH7xr9enzTeQbyTtHSN4m_qZ4nZQk_2fKGYKaxwtXy-CLXLA-VyF1BrY1LawrI9ry947Wo64QJkW-ZiOw2uB2eufdA5ctRERfFR2rWOV5eu-ZXNk3JNeWC7I7637FVYYQO6vy0ke7SnnA3s0FofMgvfPgEmpEkQkWM9tRYGuKEo0gmFrQORuvde0CSTkED"/>
-<div class="flex flex-col justify-center">
-<span class="font-headline-sm text-lg tracking-wider text-white leading-none font-semibold">FML PROPERTIES</span>
-<span class="text-[10px] tracking-[0.2em] text-[#C8924B] uppercase mt-1 font-semibold">LAGOS • ABUJA</span>
-</div>
-</a>
-</div>
-<nav class="hidden xl:flex items-center gap-8 text-sm">
-<a aria-current="page" class="uppercase tracking-widest text-[#C8924B] font-semibold border-b border-[#C8924B] pb-1" data-path="home" href="#">Home</a>
-<a class="uppercase tracking-widest text-zinc-300 hover:text-white transition-colors duration-200" data-path="about-us" href="#">About Us</a>
-<a class="uppercase tracking-widest text-zinc-300 hover:text-white transition-colors duration-200" data-path="available-properties" href="#">Available Properties</a>
-<a class="uppercase tracking-widest text-zinc-300 hover:text-white transition-colors duration-200" data-path="contact-us" href="#">Contact Us</a>
-</nav>
-<div class="flex items-center gap-4">
-<div class="hidden lg:flex flex-col items-end text-right">
-<span class="text-xs text-white font-medium tracking-wider">+234 803 000 8899</span>
-<span class="text-[10px] text-zinc-400 uppercase tracking-widest">Ikoyi, Lagos</span>
-</div>
-<a class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md" data-path="contact-us" href="#">Schedule Private Viewing</a>
-</div>
-</div>
+  <div class="h-20 max-w-[1440px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md">
+    <div class="flex items-center gap-space-md">
+      <a class="flex items-center gap-3" href="index.html">
+        <img alt="FML Properties Logo" class="h-8 w-auto object-contain brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMP3HgGQSlwC82iUW4YpeFUVfTL_Et1RScxDo7Z6YZ7n7KL2U48CWmlCdH7xr9enzTeQbyTtHSN4m_qZ4nZQk_2fKGYKaxwtXy-CLXLA-VyF1BrY1LawrI9ry947Wo64QJkW-ZiOw2uB2eufdA5ctRERfFR2rWOV5eu-ZXNk3JNeWC7I7637FVYYQO6vy0ke7SnnA3s0FofMgvfPgEmpEkQkWM9tRYGuKEo0gmFrQORuvde0CSTkED"/>
+        <div class="flex flex-col justify-center">
+          <span class="font-headline-sm text-lg tracking-wider text-white leading-none font-semibold">FML PROPERTIES</span>
+          <span class="text-[10px] tracking-[0.2em] text-[#C8924B] uppercase mt-1 font-semibold">LAGOS • ABUJA</span>
+        </div>
+      </a>
+    </div>
+    <nav class="hidden xl:flex items-center gap-8 text-sm">
+      <a class="uppercase tracking-widest text-[#C8924B] font-semibold border-b border-[#C8924B] pb-1" href="index.html">Home</a>
+      <a class="uppercase tracking-widest text-zinc-300 hover:text-white transition-colors duration-200" href="about.html">About Us</a>
+      <a class="uppercase tracking-widest text-zinc-300 hover:text-white transition-colors duration-200" href="pro.html">Available Properties</a>
+      <a class="uppercase tracking-widest text-zinc-300 hover:text-white transition-colors duration-200" href="contact.html">Contact Us</a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <div class="hidden lg:flex flex-col items-end text-right">
+        <span class="text-xs text-white font-medium tracking-wider">+234 803 000 8899</span>
+        <span class="text-[10px] text-zinc-400 uppercase tracking-widest">Ikoyi, Lagos</span>
+      </div>
+      <!-- Consultation Button (popup) -->
+      <button id="consultBtn" class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md">
+        <span class="material-symbols-outlined text-[18px] mr-1">support_agent</span> Consultation
+      </button>
+    </div>
+  </div>
 </header>
+
 <main class="w-full bg-background min-h-screen">
-<!-- HERO SECTION (DARK CHARCOAL WITH LUXURY RESIDENCE BG) -->
-<section class="relative w-full pt-32 pb-36 lg:pb-44 bg-[#121316] text-white overflow-hidden">
-<!-- Background Image with Scrim Overlay -->
-<div class="absolute inset-0 z-0 bg-cover bg-center opacity-45" data-alt="Monolithic multi-level ultra-luxury modern architectural mansion in Banana Island Lagos Nigeria, cantilevered concrete and dark bronze metallic trims, expansive floor-to-ceiling glass illuminated at dusk, tranquil private infinity pool reflecting warm architectural lighting, lush royal palm trees, cinematic twilight atmosphere with gold and deep obsidian tones" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDMni6nP39xODUZkLQ01phHuhQDLMOVgp0Bxw3kdrVOUBktzlr7A8rER-3qsl_roHyEOv13LYFBPzLlPV1wlc8JZ4eaD3fSAUa8VQhTcUTaukaTvj1vKhKw8pgwRg-Vl46k4ezh9z3snL-s-90fEU7DVBorVytWRh4sGEpz6dbM2BpPMqN24_mWxcJk_3ax8nSEiABPTUZ3P0axoKWHKMnTj9ray6gxshvWc-xQkpuL5x8nNdqoEHYx')"></div>
-<div class="absolute inset-0 z-0 bg-gradient-to-r from-[#121316] via-[#121316]/80 to-transparent"></div>
-<div class="absolute inset-0 z-0 bg-gradient-to-t from-[#121316] via-transparent to-[#121316]/50"></div>
-<div class="relative z-10 max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
-<!-- Overline & Status Badge -->
-<div class="flex items-center gap-3 mb-6">
-<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10">
-<span class="w-2 h-2 rounded-full bg-[#C8924B] animate-pulse"></span>
-<span class="text-[11px] font-semibold text-[#f5bc76] uppercase tracking-widest">Sovereign Asset Brokerage</span>
-</span>
-<span class="text-xs text-zinc-400 uppercase tracking-widest hidden sm:inline-block">Lagos • Abuja • London Advisory</span>
-</div>
-<!-- Main Headline & Subtitle -->
-<div class="max-w-3xl">
-<h1 class="font-display-hero text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.12] tracking-tight mb-6 font-normal">
+
+  <!-- ========== HERO SECTION WITH VIDEO ========== -->
+  <section class="relative w-full pt-32 pb-36 lg:pb-44 bg-[#121316] text-white overflow-hidden">
+    <!-- Video background -->
+    <video class="video-hero" autoplay muted loop playsinline poster="">
+      <source src="FML.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <!-- scrim overlays -->
+    <div class="absolute inset-0 z-0 bg-gradient-to-r from-[#121316] via-[#121316]/80 to-transparent"></div>
+    <div class="absolute inset-0 z-0 bg-gradient-to-t from-[#121316] via-transparent to-[#121316]/50"></div>
+
+    <div class="relative z-10 max-w-[1440px] mx-auto px-margin-mobile md:px-margin hero-content">
+      <!-- Overline & Status Badge -->
+      <div class="flex items-center gap-3 mb-6 flex-wrap">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+          <span class="w-2 h-2 rounded-full bg-[#C8924B] animate-pulse"></span>
+          <span class="text-[11px] font-semibold text-[#f5bc76] uppercase tracking-widest">Sovereign Asset Brokerage</span>
+        </span>
+        <span class="text-xs text-zinc-400 uppercase tracking-widest hidden sm:inline-block">Lagos • Abuja • London Advisory</span>
+      </div>
+      <!-- Main Headline -->
+      <div class="max-w-3xl">
+        <h1 class="font-display-hero text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.12] tracking-tight mb-6 font-normal">
           We Build Spaces <span class="italic font-normal text-[#e9c349]">That Last</span>
-</h1>
-<p class="font-body-lg text-base sm:text-lg text-zinc-300 max-w-2xl mb-8 leading-relaxed font-light">
+        </h1>
+        <p class="font-body-lg text-base sm:text-lg text-zinc-300 max-w-2xl mb-8 leading-relaxed font-light">
           Curating bespoke waterfront mansions in Banana Island, skyline penthouses in Eko Atlantic, and sovereign estates in Maitama, Abuja with institutional diligence.
         </p>
-<!-- CTA Buttons -->
-<div class="flex flex-wrap items-center gap-4 mb-12">
-<a class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-lg shadow-[#c8924b]/20" data-path="available-properties" href="#">
-<span>Explore Prime Portfolio</span>
-<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-</a>
-<a class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white text-xs uppercase tracking-widest font-medium border border-white/15 transition-colors duration-200" data-path="contact-us" href="#">
-<span class="material-symbols-outlined text-[#e9c349] text-[18px]">play_circle</span>
-<span>Private Advisory Tour</span>
-</a>
-</div>
-</div>
-<!-- Quick Search Filter Bar in Hero (matching Buildora curve vibe) -->
-<div class="bg-[#1e1f24]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 lg:p-6 shadow-2xl max-w-5xl">
-<form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
-<div class="flex flex-col">
-<label class="text-[11px] font-semibold text-[#e9c349] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[15px]">location_on</span> Prime Enclave
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center gap-4 mb-12">
+          <a href="pro.html" class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-lg shadow-[#c8924b]/20">
+            <span>Explore Prime Portfolio</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </a>
+          <a href="contact.html" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white text-xs uppercase tracking-widest font-medium border border-white/15 transition-colors duration-200">
+            <span class="material-symbols-outlined text-[#e9c349] text-[18px]">play_circle</span>
+            <span>Private Advisory Tour</span>
+          </a>
+        </div>
+      </div>
+      <!-- Quick Search Filter Bar -->
+      <div class="bg-[#1e1f24]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 lg:p-6 shadow-2xl max-w-5xl">
+        <form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+          <div class="flex flex-col">
+            <label class="text-[11px] font-semibold text-[#e9c349] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[15px]">location_on</span> Prime Enclave
             </label>
-<div class="relative bg-[#121316] rounded-xl border border-white/10">
-<select class="w-full bg-transparent px-4 py-2.5 text-xs text-white appearance-none focus:outline-none cursor-pointer">
-<option class="bg-[#121316] text-white" value="all">All Prime Locations</option>
-<option class="bg-[#121316] text-white" value="banana">Banana Island, Ikoyi</option>
-<option class="bg-[#121316] text-white" value="ikoyi">Old Ikoyi Waterfront</option>
-<option class="bg-[#121316] text-white" value="eko">Eko Atlantic City</option>
-<option class="bg-[#121316] text-white" value="lekki1">Lekki Phase 1</option>
-<option class="bg-[#121316] text-white" value="maitama">Maitama, Abuja</option>
-</select>
-<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-zinc-400 text-[18px]">expand_more</span>
-</div>
-</div>
-<div class="flex flex-col">
-<label class="text-[11px] font-semibold text-[#e9c349] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[15px]">apartment</span> Property Type
+            <div class="relative bg-[#121316] rounded-xl border border-white/10">
+              <select class="w-full bg-transparent px-4 py-2.5 text-xs text-white appearance-none focus:outline-none cursor-pointer">
+                <option class="bg-[#121316] text-white" value="all">All Prime Locations</option>
+                <option class="bg-[#121316] text-white" value="banana">Banana Island, Ikoyi</option>
+                <option class="bg-[#121316] text-white" value="ikoyi">Old Ikoyi Waterfront</option>
+                <option class="bg-[#121316] text-white" value="eko">Eko Atlantic City</option>
+                <option class="bg-[#121316] text-white" value="lekki1">Lekki Phase 1</option>
+                <option class="bg-[#121316] text-white" value="maitama">Maitama, Abuja</option>
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-zinc-400 text-[18px]">expand_more</span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label class="text-[11px] font-semibold text-[#e9c349] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[15px]">apartment</span> Property Type
             </label>
-<div class="relative bg-[#121316] rounded-xl border border-white/10">
-<select class="w-full bg-transparent px-4 py-2.5 text-xs text-white appearance-none focus:outline-none cursor-pointer">
-<option class="bg-[#121316] text-white" value="all">All Typologies</option>
-<option class="bg-[#121316] text-white" value="waterfront-villa">Waterfront Villa</option>
-<option class="bg-[#121316] text-white" value="skyline-penthouse">Sky Penthouse</option>
-<option class="bg-[#121316] text-white" value="diplomatic-compound">Diplomatic Sanctuary</option>
-<option class="bg-[#121316] text-white" value="commercial-tower">Prime Commercial</option>
-</select>
-<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-zinc-400 text-[18px]">expand_more</span>
-</div>
-</div>
-<div class="flex flex-col">
-<label class="text-[11px] font-semibold text-[#e9c349] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[15px]">payments</span> Acquisition Tier
+            <div class="relative bg-[#121316] rounded-xl border border-white/10">
+              <select class="w-full bg-transparent px-4 py-2.5 text-xs text-white appearance-none focus:outline-none cursor-pointer">
+                <option class="bg-[#121316] text-white" value="all">All Typologies</option>
+                <option class="bg-[#121316] text-white" value="waterfront-villa">Waterfront Villa</option>
+                <option class="bg-[#121316] text-white" value="skyline-penthouse">Sky Penthouse</option>
+                <option class="bg-[#121316] text-white" value="diplomatic-compound">Diplomatic Sanctuary</option>
+                <option class="bg-[#121316] text-white" value="commercial-tower">Prime Commercial</option>
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-zinc-400 text-[18px]">expand_more</span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label class="text-[11px] font-semibold text-[#e9c349] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[15px]">payments</span> Acquisition Tier
             </label>
-<div class="relative bg-[#121316] rounded-xl border border-white/10">
-<select class="w-full bg-transparent px-4 py-2.5 text-xs text-white appearance-none focus:outline-none cursor-pointer">
-<option class="bg-[#121316] text-white" value="any">Any Tier</option>
-<option class="bg-[#121316] text-white" value="tier1">₦850M - ₦2.5B ($600K-$1.8M)</option>
-<option class="bg-[#121316] text-white" value="tier2">₦2.5B - ₦5.0B ($1.8M-$3.5M)</option>
-<option class="bg-[#121316] text-white" value="tier3">₦5.0B+ ($3.5M - $10M+)</option>
-</select>
-<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-zinc-400 text-[18px]">expand_more</span>
-</div>
-</div>
-<div>
-<button class="w-full h-[40px] rounded-xl bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-all duration-300" type="button">
-<span class="material-symbols-outlined text-[18px]">search</span>
-<span>Find Properties</span>
-</button>
-</div>
-</form>
-</div>
-</div>
-<!-- WAVE TRANSITION 1: Dark to Warm White/Ivory -->
-<div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
-<svg class="relative block w-full h-[60px] md:h-[90px] text-[#FCF9F4]" preserveaspectratio="none" viewbox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
-<path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,60 L1200,120 L0,120 Z" fill="currentColor"></path>
-</svg>
-</div>
-</section>
-<!-- WARM WHITE SECTION 1: FEATURED PROJECTS (Directly echoing Buildora's Featured Projects) -->
-<section class="w-full pt-10 pb-28 bg-[#FCF9F4] relative overflow-hidden">
-<!-- Blueprint subtle watermark lines in background matching reference -->
-<div class="absolute top-0 right-0 w-96 h-96 opacity-10 pointer-events-none bg-[radial-gradient(#815512_1px,transparent_1px)] [background-size:16px_16px]"></div>
-<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin relative z-10">
-<!-- Section Header: Centered with overline like reference -->
-<div class="text-center max-w-xl mx-auto mb-14">
-<span class="text-xs uppercase tracking-[0.25em] text-[#C8924B] font-bold block mb-2">Our Work</span>
-<h2 class="font-headline-lg text-3xl md:text-4xl text-[#1c1c19] tracking-tight">
-          Featured Projects
-        </h2>
-</div>
-<!-- Property Grid (3 Columns) with subtle rounded cards & warm borders matching Buildora reference -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-<!-- CARD 1: Banana Island Waterfront Villa -->
-<article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
-<div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
-<div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Modern ultra-luxurious waterfront mansion in Banana Island Lagos Nigeria" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIRXXQU5lTNWb0oXKCPQ-kRLr91JlfUGH13w2mfh49ckEIg_85twTO5SHQhQ_PaqmmiR5W_yzsa5jwOjAmNzMD--yC--8slQDupOYBZRzXK0-XBSIK7IU2_Vhw8ypRYRzIcvWN-lT7DYbCdkBQV6rsjgfX1rmsLZqdOjQX62_nXYkAnJpRTJWpZW1Ur5If-d_YMQdTL50sEo5sajGJoQgA5CamzOJl7WUbcCvbW0o_D1NidTQVy0ut')"></div>
-<div class="absolute top-4 left-4 flex gap-2">
-<span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Banana Island</span>
-<span class="px-3 py-1 rounded-full bg-[#C8924B] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Private Berth</span>
-</div>
-<div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
-<span class="material-symbols-outlined text-[#f7bb70] text-[13px]">verified</span>
-<span>Federal C of O</span>
-</div>
-</div>
-<div class="p-6 flex flex-col flex-1 justify-between">
-<div>
-<div class="flex items-center gap-2 mb-2 text-[#C8924B]">
-<span class="material-symbols-outlined text-[18px]">apartment</span>
-<span class="text-xs font-semibold tracking-wider uppercase">Luxury Waterfront Villa • 1,650 SQM</span>
-</div>
-<h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">
-                The Banana Island Waterfront Villa
-              </h3>
-<p class="text-xs text-[#504538] leading-relaxed mb-5">
-                45 meters of lagoon frontage with integrated Crestron home automation, 6 palatial en-suite suites, and private staff quarters.
-              </p>
-</div>
-<div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
-<div>
-<span class="block text-lg font-bold text-[#815512] leading-tight">₦4,500,000,000</span>
-<span class="text-[11px] text-[#827567] font-medium">$3,200,000 USD Est.</span>
-</div>
-<a class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all" data-path="contact-us" href="#">
-<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
-</a>
-</div>
-</div>
-</article>
-<!-- CARD 2: Aura Eko Atlantic Penthouse -->
-<article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
-<div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
-<div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Futuristic luxury high-rise penthouse terrace at Eko Atlantic City Lagos Nigeria" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBXON0mpYgOPnIlmSZi6sXxharDPO_c10CnGFALM54vjKeVuJxZiwiuhxUVXtG5JDF_eDdrTpvwgmT4WXzv-3OPNr3QL13db27AnkXZOWM-1EBC3BKY22vL910mZKm55dHrLolD6fxqi_quaq_9RjtZsNTpVzsr8inDE4oVz8N-4J_HbPeTnQbjYDpNbiURjpvj7WEaJe-1yY6Vpw3DzIxnmNgmdjFVhyFWTm8aNEvg8lmRR5m7D8jL')"></div>
-<div class="absolute top-4 left-4 flex gap-2">
-<span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Eko Atlantic City</span>
-<span class="px-3 py-1 rounded-full bg-[#121316] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Sky Penthouse</span>
-</div>
-<div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
-<span class="material-symbols-outlined text-[#f7bb70] text-[13px]">flight_takeoff</span>
-<span>Helipad Access</span>
-</div>
-</div>
-<div class="p-6 flex flex-col flex-1 justify-between">
-<div>
-<div class="flex items-center gap-2 mb-2 text-[#C8924B]">
-<span class="material-symbols-outlined text-[18px]">domain</span>
-<span class="text-xs font-semibold tracking-wider uppercase">Floors 28-29 • 920 SQM</span>
-</div>
-<h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">
-                Aura Eko Atlantic Penthouse
-              </h3>
-<p class="text-xs text-[#504538] leading-relaxed mb-5">
-                Spanning the top two levels with 360° unobstructed Atlantic ocean vistas, private express dispatch elevator, and 4 dedicated vaults.
-              </p>
-</div>
-<div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
-<div>
-<span class="block text-lg font-bold text-[#815512] leading-tight">₦2,800,000,000</span>
-<span class="text-[11px] text-[#827567] font-medium">$2,000,000 USD Est.</span>
-</div>
-<a class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all" data-path="contact-us" href="#">
-<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
-</a>
-</div>
-</div>
-</article>
-<!-- CARD 3: The Maitama Diplomatic Sanctuary -->
-<article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
-<div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
-<div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Expansive palatial embassy-style modern mansion in Maitama Abuja Nigeria" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxFlnzKURB9ZrHjqU2DSoxHa8uNZyYGNwb2lbm7gvvXjhdjNL5tmsNs8s5O6Szhuy1B_0top8oM-771hkqvGRW6KsScCYc3bLFWGYqCgXo3cPRPiePncstkUUrHb11uzGmQ61XAPhVE3_eV6oJTm3A1YTOlxa7pSayJKcy4mn-OFmS0n3tr82J-IddPbbhyRYct3Rjg7KM4gB7Lt6-V7xjicQhWLveZZdCsGpTmcU8I_CfV7_wYVn4')"></div>
-<div class="absolute top-4 left-4 flex gap-2">
-<span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Maitama, Abuja</span>
-<span class="px-3 py-1 rounded-full bg-[#C8924B] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Diplomatic Zone</span>
-</div>
-<div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
-<span class="material-symbols-outlined text-[#f7bb70] text-[13px]">shield</span>
-<span>Ballistic Security</span>
-</div>
-</div>
-<div class="p-6 flex flex-col flex-1 justify-between">
-<div>
-<div class="flex items-center gap-2 mb-2 text-[#C8924B]">
-<span class="material-symbols-outlined text-[18px]">villa</span>
-<span class="text-xs font-semibold tracking-wider uppercase">Sovereign Grounds • 2,400 SQM</span>
-</div>
-<h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">
-                The Maitama Diplomatic Sanctuary
-              </h3>
-<p class="text-xs text-[#504538] leading-relaxed mb-5">
-                Built to international diplomatic protocols: subterranean safe room vault, perimeter guard barracks, banquet salon, and 12-vehicle courtyard.
-              </p>
-</div>
-<div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
-<div>
-<span class="block text-lg font-bold text-[#815512] leading-tight">₦6,200,000,000</span>
-<span class="text-[11px] text-[#827567] font-medium">$4,500,000 USD Est.</span>
-</div>
-<a class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all" data-path="contact-us" href="#">
-<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
-</a>
-</div>
-</div>
-</article>
-</div>
-<!-- Navigation Dots matching Buildora carousel controls -->
-<div class="flex justify-center items-center gap-2 mt-10">
-<span class="w-2.5 h-2.5 rounded-full bg-[#C8924B]"></span>
-<span class="w-2 h-2 rounded-full bg-[#d4c4b3]"></span>
-<span class="w-2 h-2 rounded-full bg-[#d4c4b3]"></span>
-</div>
-</div>
-</section>
-<!-- DARK CHARCOAL SECTION: 15+ YEARS / CONFIDENCE (Matching the crane/blueprint 15+ Years dark curved block) -->
-<section class="w-full relative bg-[#121316] text-white py-28 overflow-hidden">
-<!-- Top Curve Wave: Warm Ivory into Dark Charcoal -->
-<div class="absolute top-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
-<svg class="relative block w-full h-[60px] md:h-[80px] text-[#FCF9F4]" preserveaspectratio="none" viewbox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
-<path d="M0,0 L1200,0 L1200,60 C950,120 700,20 500,80 C300,140 100,50 0,60 Z" fill="currentColor"></path>
-</svg>
-</div>
-<!-- Architectural Construction Crane & Technical Wireframe Graphic (Like Reference) -->
-<div class="absolute left-8 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none hidden xl:block">
-<svg class="w-96 h-96 text-[#C8924B]" fill="none" stroke="currentColor" stroke-width="1.2" viewbox="0 0 200 200">
-<path d="M 20 180 L 180 180 M 50 180 L 50 40 L 160 40 M 50 60 L 160 60 M 70 40 L 90 60 M 110 40 L 130 60 M 50 40 L 30 70 L 50 100 M 140 60 L 140 120 M 130 120 L 150 120 L 140 140 Z"></path>
-<circle cx="50" cy="40" r="4"></circle>
-</svg>
-</div>
-<div class="relative z-20 max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-6">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-<!-- 15+ Years Callout Graphic (Direct echo of Buildora) -->
-<div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
-<div class="flex items-baseline gap-1">
-<span class="font-display-hero text-7xl md:text-9xl font-bold text-[#e9c349] tracking-tighter leading-none">15</span>
-<span class="font-display-hero text-5xl md:text-6xl text-[#C8924B] leading-none">+</span>
-</div>
-<span class="font-display-hero text-2xl md:text-3xl text-zinc-100 uppercase tracking-wider font-light mt-1 mb-4">
-            Years
-          </span>
-<p class="text-xs text-zinc-400 max-w-xs leading-relaxed">
-            Institutional brokerage built for sovereign Nigerian families, private offices, and global diaspora seeking absolute title security.
-          </p>
-</div>
-<!-- Right Side: Experience That Builds Confidence -->
-<div class="lg:col-span-8 flex flex-col">
-<div class="mb-8">
-<span class="text-xs uppercase tracking-[0.25em] text-[#C8924B] font-bold block mb-2">Built On Trust</span>
-<h2 class="font-headline-lg text-2xl md:text-4xl text-white font-normal mb-3">
-              Experience That Delivers Institutional Certainty
-            </h2>
-<p class="text-xs sm:text-sm text-zinc-400 max-w-2xl leading-relaxed">
-              For over 15 years, FML Properties has delivered exceptional property acquisition and advisory solutions across multi-billion Naira transactions.
-            </p>
-</div>
-<!-- 4 Pillars Grid (matching Buildora icons row: Projects Completed, Satisfaction, Skilled, Quality) -->
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-4">
-<!-- Metric 1 -->
-<div class="flex flex-col items-start gap-2 p-4 rounded-xl bg-white/5 border border-white/5">
-<span class="material-symbols-outlined text-[#e9c349] text-[26px]">real_estate_agent</span>
-<span class="text-2xl font-bold text-white leading-none">450+</span>
-<span class="text-[11px] text-zinc-400 uppercase tracking-wider">Trophy Residences Handed Over</span>
-</div>
-<!-- Metric 2 -->
-<div class="flex flex-col items-start gap-2 p-4 rounded-xl bg-white/5 border border-white/5">
-<span class="material-symbols-outlined text-[#e9c349] text-[26px]">verified</span>
-<span class="text-2xl font-bold text-white leading-none">99.4%</span>
-<span class="text-[11px] text-zinc-400 uppercase tracking-wider">Due Diligence Vetting Rate</span>
-</div>
-<!-- Metric 3 -->
-<div class="flex flex-col items-start gap-2 p-4 rounded-xl bg-white/5 border border-white/5">
-<span class="material-symbols-outlined text-[#e9c349] text-[26px]">shield_person</span>
-<span class="text-2xl font-bold text-white leading-none">REDAN</span>
-<span class="text-[11px] text-zinc-400 uppercase tracking-wider">Licensed Institutional Broker</span>
-</div>
-<!-- Metric 4 -->
-<div class="flex flex-col items-start gap-2 p-4 rounded-xl bg-white/5 border border-white/5">
-<span class="material-symbols-outlined text-[#e9c349] text-[26px]">lock</span>
-<span class="text-2xl font-bold text-white leading-none">₦45B+</span>
-<span class="text-[11px] text-zinc-400 uppercase tracking-wider">Off-Market Vault Closed</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Bottom Curve Wave: Dark Charcoal into Warm White/Ivory -->
-<div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
-<svg class="relative block w-full h-[60px] md:h-[80px] text-[#FCF9F4]" preserveaspectratio="none" viewbox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
-<path d="M0,40 C200,90 450,20 650,70 C850,120 1050,40 1200,60 L1200,120 L0,120 Z" fill="currentColor"></path>
-</svg>
-</div>
-</section>
-<!-- WARM WHITE SECTION 2: OUR SERVICES (Circular outlined badge icons matching Buildora reference) -->
-<section class="w-full pt-16 pb-24 bg-[#FCF9F4] relative">
-<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin relative z-10">
-<div class="text-center max-w-xl mx-auto mb-16">
-<span class="text-xs uppercase tracking-[0.25em] text-[#C8924B] font-bold block mb-2">What We Do</span>
-<h2 class="font-headline-lg text-3xl md:text-4xl text-[#1c1c19] tracking-tight">
-          Our Services
-        </h2>
-</div>
-<!-- 6-Column Service Badge Row matching Buildora's icon styling -->
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
-<!-- Service 1 -->
-<div class="flex flex-col items-center group">
-<div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
-<span class="material-symbols-outlined text-[30px] text-[#815512]">apartment</span>
-</div>
-<h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Architectural Advisory</h4>
-<p class="text-[11px] text-[#504538] leading-relaxed">Bespoke luxury design and sovereign compound master planning.</p>
-</div>
-<!-- Service 2 -->
-<div class="flex flex-col items-center group">
-<div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
-<span class="material-symbols-outlined text-[30px] text-[#815512]">villa</span>
-</div>
-<h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Prime Acquisitions</h4>
-<p class="text-[11px] text-[#504538] leading-relaxed">Curated trophy estates in Banana Island, Old Ikoyi and Maitama.</p>
-</div>
-<!-- Service 3 -->
-<div class="flex flex-col items-center group">
-<div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
-<span class="material-symbols-outlined text-[30px] text-[#815512]">domain</span>
-</div>
-<h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Commercial Assets</h4>
-<p class="text-[11px] text-[#504538] leading-relaxed">Grade-A towers and yield-optimized institutional office assets.</p>
-</div>
-<!-- Service 4 -->
-<div class="flex flex-col items-center group">
-<div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
-<span class="material-symbols-outlined text-[30px] text-[#815512]">flight_takeoff</span>
-</div>
-<h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Diaspora Concierge</h4>
-<p class="text-[11px] text-[#504538] leading-relaxed">Transparent remote delivery and audited FX channels for patrons abroad.</p>
-</div>
-<!-- Service 5 -->
-<div class="flex flex-col items-center group">
-<div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
-<span class="material-symbols-outlined text-[30px] text-[#815512]">gavel</span>
-</div>
-<h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Title Regularization</h4>
-<p class="text-[11px] text-[#504538] leading-relaxed">Governor’s Consent, C of O vetting at Alausa and AGIS Abuja.</p>
-</div>
-<!-- Service 6 -->
-<div class="flex flex-col items-center group">
-<div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
-<span class="material-symbols-outlined text-[30px] text-[#815512]">vpn_key</span>
-</div>
-<h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Off-Market Vault</h4>
-<p class="text-[11px] text-[#504538] leading-relaxed">Confidential unlisted allocations brokered under strict NDA agreements.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- WARM WHITE SECTION 3: FROM OUR BLOG (Direct match of Buildora's Blog Cards with Date Badges) -->
-<section class="w-full pb-32 bg-[#FCF9F4]">
-<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
-<div class="text-center max-w-xl mx-auto mb-14">
-<span class="text-xs uppercase tracking-[0.25em] text-[#C8924B] font-bold block mb-2">Insights &amp; Ideas</span>
-<h2 class="font-headline-lg text-3xl md:text-4xl text-[#1c1c19] tracking-tight">
-          From Our Blog
-        </h2>
-</div>
-<!-- 3 Editorial Blog Cards matching Reference -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-7">
-<!-- Post 1 -->
-<article class="bg-white rounded-2xl overflow-hidden border border-[#ebdccb]/60 shadow-[0_8px_25px_rgba(0,0,0,0.03)] flex flex-col group hover:-translate-y-1 transition-all duration-300">
-<div class="relative h-56 overflow-hidden bg-zinc-100">
-<div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Modern architectural living room with high ceilings, Italian marble floor" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdReTVn_SKUg_hk8F0-3eOCVoNCffWJ10BdKN-2JSrD1VtnixkdovE0kg0v53_GOcpwIWwGH2mALFTzIKnslKN0xlkTByPH80Rb3ZxLIhe134qyvnJbpxfdb8JYHgg3hFQC3IL1J2IVyGRgZXSXHTPiOtkHH9R7jnZEF3FiAvosgKNbCEZ54xNSng5fgRg_WsWkPGxWFgmano9ejbCEiQ0LHs3dXLDngWB4l-1jX8DcxJwoYjoL10Y')"></div>
-<!-- Date Badge in Corner matching reference -->
-<div class="absolute bottom-3 left-3 bg-white/95 rounded-lg px-2.5 py-1 text-center shadow-md">
-<span class="text-[9px] font-bold text-[#815512] uppercase block tracking-wider leading-none">MAY</span>
-<span class="text-sm font-extrabold text-[#1c1c19] leading-none">20</span>
-</div>
-</div>
-<div class="p-6 flex flex-col flex-1 justify-between">
-<div>
-<span class="text-[10px] uppercase tracking-wider text-[#C8924B] font-semibold mb-1 block">Market Analysis • Lagos</span>
-<h3 class="font-headline-sm text-base text-[#1c1c19] font-semibold mb-3 group-hover:text-[#815512] transition-colors leading-snug">
-                Navigating Prime Lagos: Banana Island vs Eko Atlantic 2025 Outlook
-              </h3>
-<p class="text-xs text-[#504538] line-clamp-2 leading-relaxed mb-4">
-                Comparative appraisal of sovereign capital preservation, rental dollar yields, and land resilience in Nigeria's top postal codes.
-              </p>
-</div>
-<a class="inline-flex items-center gap-1.5 text-xs text-[#815512] font-semibold uppercase tracking-wider group-hover:text-[#C8924B] transition-colors" href="#">
-<span>Read More</span>
-<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
-</a>
-</div>
-</article>
-<!-- Post 2 -->
-<article class="bg-white rounded-2xl overflow-hidden border border-[#ebdccb]/60 shadow-[0_8px_25px_rgba(0,0,0,0.03)] flex flex-col group hover:-translate-y-1 transition-all duration-300">
-<div class="relative h-56 overflow-hidden bg-zinc-100">
-<div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Macro textured close-up of luxury dark Nero Marquina polished marble slab" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDR21aFVi3sPh47DouFZffpoPB9yRLIYsK_4ywAAHLpUhX_vQvy7VK5mqOqj0C2mjHEuSm_T7p8vuS3vHxbkvFziwWu-v-SezYgMhal9hnxEEdVHcamE8pJNmD9GaGSRAgUHRYxjmkL7jie5DzubmlQke86DcsA8FdMg71VsAq96Nmfd9cMuG1M8WgaMA5yG4T055MAhVX1LbuVQZ6LKIKjYVWbKmCDqhvD6-fhXfllfs5BgNtdg4h4')"></div>
-<div class="absolute bottom-3 left-3 bg-white/95 rounded-lg px-2.5 py-1 text-center shadow-md">
-<span class="text-[9px] font-bold text-[#815512] uppercase block tracking-wider leading-none">MAY</span>
-<span class="text-sm font-extrabold text-[#1c1c19] leading-none">12</span>
-</div>
-</div>
-<div class="p-6 flex flex-col flex-1 justify-between">
-<div>
-<span class="text-[10px] uppercase tracking-wider text-[#C8924B] font-semibold mb-1 block">Title &amp; Diligence</span>
-<h3 class="font-headline-sm text-base text-[#1c1c19] font-semibold mb-3 group-hover:text-[#815512] transition-colors leading-snug">
-                Title Due Diligence: Why Governor’s Consent Protects Portfolios
-              </h3>
-<p class="text-xs text-[#504538] line-clamp-2 leading-relaxed mb-4">
-                Forensic breakdown of perfecting land titles in Lagos and Abuja to eliminate encumbrance risks for diaspora investors.
-              </p>
-</div>
-<a class="inline-flex items-center gap-1.5 text-xs text-[#815512] font-semibold uppercase tracking-wider group-hover:text-[#C8924B] transition-colors" href="#">
-<span>Read More</span>
-<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
-</a>
-</div>
-</article>
-<!-- Post 3 -->
-<article class="bg-white rounded-2xl overflow-hidden border border-[#ebdccb]/60 shadow-[0_8px_25px_rgba(0,0,0,0.03)] flex flex-col group hover:-translate-y-1 transition-all duration-300">
-<div class="relative h-56 overflow-hidden bg-zinc-100">
-<div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Dusk perspective of an ultra-modern smart home mansion in Guzape Hills Abuja Nigeria" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCCUTwLzZwmTWrIydkqz84MGpf6ptTNiBooY6aKjhZ-ja6-z6NO0U6uPUyBt945X33VpFLEt5YQvOjUOU7woXRL1hTOfS7cXZr70BaXmjvbvUCUOhU9UHujZHfe2wOB3u-3SJKCPEcNDE7IJRBIY65p-jEQisNhKMwWYbjmy9IAFiZ40sdgohmpfrmPvu5FQXo-GZoOHrTVhFoK7MAIbtQj5d9walUQCUsiRLufr6t9dPDXpZyw7kEQ')"></div>
-<div class="absolute bottom-3 left-3 bg-white/95 rounded-lg px-2.5 py-1 text-center shadow-md">
-<span class="text-[9px] font-bold text-[#815512] uppercase block tracking-wider leading-none">MAY</span>
-<span class="text-sm font-extrabold text-[#1c1c19] leading-none">05</span>
-</div>
-</div>
-<div class="p-6 flex flex-col flex-1 justify-between">
-<div>
-<span class="text-[10px] uppercase tracking-wider text-[#C8924B] font-semibold mb-1 block">Smart Living</span>
-<h3 class="font-headline-sm text-base text-[#1c1c19] font-semibold mb-3 group-hover:text-[#815512] transition-colors leading-snug">
-                The Rise of Smart Autonomous Estates in Maitama &amp; Guzape, Abuja
-              </h3>
-<p class="text-xs text-[#504538] line-clamp-2 leading-relaxed mb-4">
-                How integrated solar microgrids, off-grid water purification, and biometric vaults redefine sovereign permanence.
-              </p>
-</div>
-<a class="inline-flex items-center gap-1.5 text-xs text-[#815512] font-semibold uppercase tracking-wider group-hover:text-[#C8924B] transition-colors" href="#">
-<span>Read More</span>
-<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
-</a>
-</div>
-</article>
-</div>
-</div>
-</section>
+            <div class="relative bg-[#121316] rounded-xl border border-white/10">
+              <select class="w-full bg-transparent px-4 py-2.5 text-xs text-white appearance-none focus:outline-none cursor-pointer">
+                <option class="bg-[#121316] text-white" value="any">Any Tier</option>
+                <option class="bg-[#121316] text-white" value="tier1">₦850M - ₦2.5B ($600K-$1.8M)</option>
+                <option class="bg-[#121316] text-white" value="tier2">₦2.5B - ₦5.0B ($1.8M-$3.5M)</option>
+                <option class="bg-[#121316] text-white" value="tier3">₦5.0B+ ($3.5M - $10M+)</option>
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-zinc-400 text-[18px]">expand_more</span>
+            </div>
+          </div>
+          <div>
+            <button class="w-full h-[40px] rounded-xl bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-all duration-300" type="button">
+              <span class="material-symbols-outlined text-[18px]">search</span>
+              <span>Find Properties</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- WAVE TRANSITION -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
+      <svg class="relative block w-full h-[60px] md:h-[90px] text-[#FCF9F4]" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,60 L1200,120 L0,120 Z" fill="currentColor"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ========== FEATURED PROPERTIES (9 cards) ========== -->
+  <section class="w-full pt-10 pb-28 bg-[#FCF9F4] relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 opacity-10 pointer-events-none bg-[radial-gradient(#815512_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin relative z-10">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <span class="text-xs uppercase tracking-[0.25em] text-[#C8924B] font-bold block mb-2">Our Work</span>
+        <h2 class="font-headline-lg text-3xl md:text-4xl text-[#1c1c19] tracking-tight">Featured Projects</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <!-- 1. Banana Island Waterfront Villa -->
+        <article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+          <div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIRXXQU5lTNWb0oXKCPQ-kRLr91JlfUGH13w2mfh49ckEIg_85twTO5SHQhQ_PaqmmiR5W_yzsa5jwOjAmNzMD--yC--8slQDupOYBZRzXK0-XBSIK7IU2_Vhw8ypRYRzIcvWN-lT7DYbCdkBQV6rsjgfX1rmsLZqdOjQX62_nXYkAnJpRTJWpZW1Ur5If-d_YMQdTL50sEo5sajGJoQgA5CamzOJl7WUbcCvbW0o_D1NidTQVy0ut')"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Banana Island</span>
+              <span class="px-3 py-1 rounded-full bg-[#C8924B] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Private Berth</span>
+            </div>
+            <div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
+              <span class="material-symbols-outlined text-[#f7bb70] text-[13px]">verified</span>
+              <span>Federal C of O</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2 text-[#C8924B]">
+                <span class="material-symbols-outlined text-[18px]">apartment</span>
+                <span class="text-xs font-semibold tracking-wider uppercase">Luxury Waterfront Villa • 1,650 SQM</span>
+              </div>
+              <h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">The Banana Island Waterfront Villa</h3>
+              <p class="text-xs text-[#504538] leading-relaxed mb-5">45 meters of lagoon frontage with integrated Crestron home automation, 6 palatial en-suite suites, and private staff quarters.</p>
+            </div>
+            <div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
+              <div>
+                <span class="block text-lg font-bold text-[#815512] leading-tight">₦4,500,000,000</span>
+                <span class="text-[11px] text-[#827567] font-medium">$3,200,000 USD Est.</span>
+              </div>
+              <a href="contact.html" class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Aura Eko Atlantic Penthouse -->
+        <article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+          <div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBXON0mpYgOPnIlmSZi6sXxharDPO_c10CnGFALM54vjKeVuJxZiwiuhxUVXtG5JDF_eDdrTpvwgmT4WXzv-3OPNr3QL13db27AnkXZOWM-1EBC3BKY22vL910mZKm55dHrLolD6fxqi_quaq_9RjtZsNTpVzsr8inDE4oVz8N-4J_HbPeTnQbjYDpNbiURjpvj7WEaJe-1yY6Vpw3DzIxnmNgmdjFVhyFWTm8aNEvg8lmRR5m7D8jL')"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Eko Atlantic City</span>
+              <span class="px-3 py-1 rounded-full bg-[#121316] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Sky Penthouse</span>
+            </div>
+            <div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
+              <span class="material-symbols-outlined text-[#f7bb70] text-[13px]">flight_takeoff</span>
+              <span>Helipad Access</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2 text-[#C8924B]">
+                <span class="material-symbols-outlined text-[18px]">domain</span>
+                <span class="text-xs font-semibold tracking-wider uppercase">Floors 28-29 • 920 SQM</span>
+              </div>
+              <h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">Aura Eko Atlantic Penthouse</h3>
+              <p class="text-xs text-[#504538] leading-relaxed mb-5">Spanning the top two levels with 360° unobstructed Atlantic ocean vistas, private express dispatch elevator, and 4 dedicated vaults.</p>
+            </div>
+            <div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
+              <div>
+                <span class="block text-lg font-bold text-[#815512] leading-tight">₦2,800,000,000</span>
+                <span class="text-[11px] text-[#827567] font-medium">$2,000,000 USD Est.</span>
+              </div>
+              <a href="contact.html" class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Maitama Diplomatic Sanctuary -->
+        <article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+          <div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxFlnzKURB9ZrHjqU2DSoxHa8uNZyYGNwb2lbm7gvvXjhdjNL5tmsNs8s5O6Szhuy1B_0top8oM-771hkqvGRW6KsScCYc3bLFWGYqCgXo3cPRPiePncstkUUrHb11uzGmQ61XAPhVE3_eV6oJTm3A1YTOlxa7pSayJKcy4mn-OFmS0n3tr82J-IddPbbhyRYct3Rjg7KM4gB7Lt6-V7xjicQhWLveZZdCsGpTmcU8I_CfV7_wYVn4')"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Maitama, Abuja</span>
+              <span class="px-3 py-1 rounded-full bg-[#C8924B] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Diplomatic Zone</span>
+            </div>
+            <div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
+              <span class="material-symbols-outlined text-[#f7bb70] text-[13px]">shield</span>
+              <span>Ballistic Security</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2 text-[#C8924B]">
+                <span class="material-symbols-outlined text-[18px]">villa</span>
+                <span class="text-xs font-semibold tracking-wider uppercase">Sovereign Grounds • 2,400 SQM</span>
+              </div>
+              <h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">The Maitama Diplomatic Sanctuary</h3>
+              <p class="text-xs text-[#504538] leading-relaxed mb-5">Built to international diplomatic protocols: subterranean safe room vault, perimeter guard barracks, banquet salon, and 12-vehicle courtyard.</p>
+            </div>
+            <div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
+              <div>
+                <span class="block text-lg font-bold text-[#815512] leading-tight">₦6,200,000,000</span>
+                <span class="text-[11px] text-[#827567] font-medium">$4,500,000 USD Est.</span>
+              </div>
+              <a href="contact.html" class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Lekki Phase 1 Smart Villa -->
+        <article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+          <div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80&auto=format&fit=crop')"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Lekki Phase 1</span>
+              <span class="px-3 py-1 rounded-full bg-[#C8924B] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Smart Home</span>
+            </div>
+            <div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
+              <span class="material-symbols-outlined text-[#f7bb70] text-[13px]">wifi</span>
+              <span>Fully Automated</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2 text-[#C8924B]">
+                <span class="material-symbols-outlined text-[18px]">home</span>
+                <span class="text-xs font-semibold tracking-wider uppercase">5 Bedroom Smart Villa • 800 SQM</span>
+              </div>
+              <h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">Lekki Phase 1 Smart Villa</h3>
+              <p class="text-xs text-[#504538] leading-relaxed mb-5">Contemporary architecture with solar microgrid, biometric access, infinity pool, and private cinema. Minutes from Admiralty Way.</p>
+            </div>
+            <div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
+              <div>
+                <span class="block text-lg font-bold text-[#815512] leading-tight">₦1,850,000,000</span>
+                <span class="text-[11px] text-[#827567] font-medium">$1,320,000 USD Est.</span>
+              </div>
+              <a href="contact.html" class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Ikoyi Old Waterfront Duplex -->
+        <article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+          <div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80&auto=format&fit=crop')"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Old Ikoyi</span>
+              <span class="px-3 py-1 rounded-full bg-[#121316] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Waterfront</span>
+            </div>
+            <div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
+              <span class="material-symbols-outlined text-[#f7bb70] text-[13px]">sailing</span>
+              <span>Private Jetty</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2 text-[#C8924B]">
+                <span class="material-symbols-outlined text-[18px]">house</span>
+                <span class="text-xs font-semibold tracking-wider uppercase">4 Bedroom Duplex • 1,100 SQM</span>
+              </div>
+              <h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">Ikoyi Old Waterfront Duplex</h3>
+              <p class="text-xs text-[#504538] leading-relaxed mb-5">Rare waterfront duplex with private jetty, lush tropical garden, and panoramic views of Five Cowrie Creek. Fully renovated.</p>
+            </div>
+            <div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
+              <div>
+                <span class="block text-lg font-bold text-[#815512] leading-tight">₦3,200,000,000</span>
+                <span class="text-[11px] text-[#827567] font-medium">$2,280,000 USD Est.</span>
+              </div>
+              <a href="contact.html" class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. Asokoro Presidential Estate -->
+        <article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+          <div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80&auto=format&fit=crop')"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Asokoro, Abuja</span>
+              <span class="px-3 py-1 rounded-full bg-[#C8924B] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Presidential</span>
+            </div>
+            <div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
+              <span class="material-symbols-outlined text-[#f7bb70] text-[13px]">security</span>
+              <span>24/7 Guarded</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2 text-[#C8924B]">
+                <span class="material-symbols-outlined text-[18px]">apartment</span>
+                <span class="text-xs font-semibold tracking-wider uppercase">6 Bedroom Mansion • 1,800 SQM</span>
+              </div>
+              <h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">Asokoro Presidential Estate</h3>
+              <p class="text-xs text-[#504538] leading-relaxed mb-5">Grand mansion with diplomatic-grade security, marble finishes, landscaped gardens, and separate staff quarters. Near Presidential Villa.</p>
+            </div>
+            <div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
+              <div>
+                <span class="block text-lg font-bold text-[#815512] leading-tight">₦5,800,000,000</span>
+                <span class="text-[11px] text-[#827567] font-medium">$4,100,000 USD Est.</span>
+              </div>
+              <a href="contact.html" class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7. Victoria Island Commercial Tower -->
+        <article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+          <div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&auto=format&fit=crop')"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Victoria Island</span>
+              <span class="px-3 py-1 rounded-full bg-[#121316] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Grade-A Office</span>
+            </div>
+            <div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
+              <span class="material-symbols-outlined text-[#f7bb70] text-[13px]">business</span>
+              <span>LEED Certified</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2 text-[#C8924B]">
+                <span class="material-symbols-outlined text-[18px]">corporate_fare</span>
+                <span class="text-xs font-semibold tracking-wider uppercase">Commercial Tower • 12 Floors</span>
+              </div>
+              <h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">Victoria Island Commercial Tower</h3>
+              <p class="text-xs text-[#504538] leading-relaxed mb-5">Prime Grade-A office building with 85% occupancy, smart HVAC, backup power, and 120 parking spaces. Excellent investment yield.</p>
+            </div>
+            <div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
+              <div>
+                <span class="block text-lg font-bold text-[#815512] leading-tight">₦12,000,000,000</span>
+                <span class="text-[11px] text-[#827567] font-medium">$8,500,000 USD Est.</span>
+              </div>
+              <a href="contact.html" class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8. Guzape Hills Smart Estate -->
+        <article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+          <div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80&auto=format&fit=crop')"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Guzape Hills, Abuja</span>
+              <span class="px-3 py-1 rounded-full bg-[#C8924B] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Eco-Luxury</span>
+            </div>
+            <div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
+              <span class="material-symbols-outlined text-[#f7bb70] text-[13px]">solar_power</span>
+              <span>Solar Microgrid</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2 text-[#C8924B]">
+                <span class="material-symbols-outlined text-[18px]">eco</span>
+                <span class="text-xs font-semibold tracking-wider uppercase">Smart Estate • 600 SQM</span>
+              </div>
+              <h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">Guzape Hills Smart Estate</h3>
+              <p class="text-xs text-[#504538] leading-relaxed mb-5">Eco-luxury smart home with off-grid solar, rainwater harvesting, biometric vault, and panoramic hill views. Sustainable premium living.</p>
+            </div>
+            <div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
+              <div>
+                <span class="block text-lg font-bold text-[#815512] leading-tight">₦2,400,000,000</span>
+                <span class="text-[11px] text-[#827567] font-medium">$1,700,000 USD Est.</span>
+              </div>
+              <a href="contact.html" class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 9. Port Harcourt Waterfront Estate -->
+        <article class="group bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-[#ebdccb]/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
+          <div class="relative h-64 md:h-72 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80&auto=format&fit=crop')"></div>
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] text-[#815512] font-semibold uppercase tracking-wider shadow-sm">Port Harcourt</span>
+              <span class="px-3 py-1 rounded-full bg-[#121316] text-white text-[10px] font-semibold uppercase tracking-wider shadow-sm">Waterfront</span>
+            </div>
+            <div class="absolute bottom-3 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121316]/80 text-white backdrop-blur-md text-[10px]">
+              <span class="material-symbols-outlined text-[#f7bb70] text-[13px]">anchor</span>
+              <span>Marina Access</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2 text-[#C8924B]">
+                <span class="material-symbols-outlined text-[18px]">directions_boat</span>
+                <span class="text-xs font-semibold tracking-wider uppercase">5 Bedroom Villa • 1,400 SQM</span>
+              </div>
+              <h3 class="font-headline-md text-xl text-[#1c1c19] mb-2 font-medium group-hover:text-[#815512] transition-colors">Port Harcourt Waterfront Estate</h3>
+              <p class="text-xs text-[#504538] leading-relaxed mb-5">Exclusive waterfront villa in Old GRA with private marina access, resort-style pool, and stunning views of the Bonny River.</p>
+            </div>
+            <div class="pt-4 border-t border-[#f0ede9] flex items-center justify-between">
+              <div>
+                <span class="block text-lg font-bold text-[#815512] leading-tight">₦3,900,000,000</span>
+                <span class="text-[11px] text-[#827567] font-medium">$2,780,000 USD Est.</span>
+              </div>
+              <a href="contact.html" class="w-9 h-9 rounded-full bg-[#f6f3ee] group-hover:bg-[#C8924B] group-hover:text-white text-[#815512] flex items-center justify-center transition-all">
+                <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Dots -->
+      <div class="flex justify-center items-center gap-2 mt-10">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#C8924B]"></span>
+        <span class="w-2 h-2 rounded-full bg-[#d4c4b3]"></span>
+        <span class="w-2 h-2 rounded-full bg-[#d4c4b3]"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHY WE ARE THE BEST ========== -->
+  <section class="w-full relative bg-[#121316] text-white py-28 overflow-hidden">
+    <div class="absolute top-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
+      <svg class="relative block w-full h-[60px] md:h-[80px] text-[#FCF9F4]" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 L1200,0 L1200,60 C950,120 700,20 500,80 C300,140 100,50 0,60 Z" fill="currentColor"></path>
+      </svg>
+    </div>
+    <div class="absolute left-8 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none hidden xl:block">
+      <svg class="w-96 h-96 text-[#C8924B]" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 200 200">
+        <path d="M 20 180 L 180 180 M 50 180 L 50 40 L 160 40 M 50 60 L 160 60 M 70 40 L 90 60 M 110 40 L 130 60 M 50 40 L 30 70 L 50 100 M 140 60 L 140 120 M 130 120 L 150 120 L 140 140 Z"></path>
+        <circle cx="50" cy="40" r="4"></circle>
+      </svg>
+    </div>
+    <div class="relative z-20 max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <div class="flex items-baseline gap-1">
+            <span class="font-display-hero text-7xl md:text-9xl font-bold text-[#e9c349] tracking-tighter leading-none">15</span>
+            <span class="font-display-hero text-5xl md:text-6xl text-[#C8924B] leading-none">+</span>
+          </div>
+          <span class="font-display-hero text-2xl md:text-3xl text-zinc-100 uppercase tracking-wider font-light mt-1 mb-4">Years</span>
+          <p class="text-xs text-zinc-400 max-w-xs leading-relaxed">Institutional brokerage built for sovereign Nigerian families, private offices, and global diaspora seeking absolute title security.</p>
+        </div>
+        <div class="lg:col-span-8 flex flex-col">
+          <div class="mb-8">
+            <span class="text-xs uppercase tracking-[0.25em] text-[#C8924B] font-bold block mb-2">Built On Trust</span>
+            <h2 class="font-headline-lg text-2xl md:text-4xl text-white font-normal mb-3">Why We Are The Best</h2>
+            <p class="text-xs sm:text-sm text-zinc-400 max-w-2xl leading-relaxed">For over 15 years, FML Properties has delivered exceptional property acquisition and advisory solutions across multi-billion Naira transactions.</p>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-4">
+            <div class="flex flex-col items-start gap-2 p-4 rounded-xl bg-white/5 border border-white/5">
+              <span class="material-symbols-outlined text-[#e9c349] text-[26px]">real_estate_agent</span>
+              <span class="text-2xl font-bold text-white leading-none">450+</span>
+              <span class="text-[11px] text-zinc-400 uppercase tracking-wider">Trophy Residences Handed Over</span>
+            </div>
+            <div class="flex flex-col items-start gap-2 p-4 rounded-xl bg-white/5 border border-white/5">
+              <span class="material-symbols-outlined text-[#e9c349] text-[26px]">verified</span>
+              <span class="text-2xl font-bold text-white leading-none">99.4%</span>
+              <span class="text-[11px] text-zinc-400 uppercase tracking-wider">Due Diligence Vetting Rate</span>
+            </div>
+            <div class="flex flex-col items-start gap-2 p-4 rounded-xl bg-white/5 border border-white/5">
+              <span class="material-symbols-outlined text-[#e9c349] text-[26px]">shield_person</span>
+              <span class="text-2xl font-bold text-white leading-none">REDAN</span>
+              <span class="text-[11px] text-zinc-400 uppercase tracking-wider">Licensed Institutional Broker</span>
+            </div>
+            <div class="flex flex-col items-start gap-2 p-4 rounded-xl bg-white/5 border border-white/5">
+              <span class="material-symbols-outlined text-[#e9c349] text-[26px]">lock</span>
+              <span class="text-2xl font-bold text-white leading-none">₦45B+</span>
+              <span class="text-[11px] text-zinc-400 uppercase tracking-wider">Off-Market Vault Closed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
+      <svg class="relative block w-full h-[60px] md:h-[80px] text-[#FCF9F4]" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C200,90 450,20 650,70 C850,120 1050,40 1200,60 L1200,120 L0,120 Z" fill="currentColor"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ========== OUR SERVICES ========== -->
+  <section class="w-full pt-16 pb-24 bg-[#FCF9F4] relative">
+    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin relative z-10">
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <span class="text-xs uppercase tracking-[0.25em] text-[#C8924B] font-bold block mb-2">What We Do</span>
+        <h2 class="font-headline-lg text-3xl md:text-4xl text-[#1c1c19] tracking-tight">Our Services</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+        <div class="flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
+            <span class="material-symbols-outlined text-[30px] text-[#815512]">apartment</span>
+          </div>
+          <h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Architectural Advisory</h4>
+          <p class="text-[11px] text-[#504538] leading-relaxed">Bespoke luxury design and sovereign compound master planning.</p>
+        </div>
+        <div class="flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
+            <span class="material-symbols-outlined text-[30px] text-[#815512]">villa</span>
+          </div>
+          <h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Prime Acquisitions</h4>
+          <p class="text-[11px] text-[#504538] leading-relaxed">Curated trophy estates in Banana Island, Old Ikoyi and Maitama.</p>
+        </div>
+        <div class="flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
+            <span class="material-symbols-outlined text-[30px] text-[#815512]">domain</span>
+          </div>
+          <h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Commercial Assets</h4>
+          <p class="text-[11px] text-[#504538] leading-relaxed">Grade-A towers and yield-optimized institutional office assets.</p>
+        </div>
+        <div class="flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
+            <span class="material-symbols-outlined text-[30px] text-[#815512]">flight_takeoff</span>
+          </div>
+          <h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Diaspora Concierge</h4>
+          <p class="text-[11px] text-[#504538] leading-relaxed">Transparent remote delivery and audited FX channels for patrons abroad.</p>
+        </div>
+        <div class="flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
+            <span class="material-symbols-outlined text-[30px] text-[#815512]">gavel</span>
+          </div>
+          <h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Title Regularization</h4>
+          <p class="text-[11px] text-[#504538] leading-relaxed">Governor’s Consent, C of O vetting at Alausa and AGIS Abuja.</p>
+        </div>
+        <div class="flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-full border border-[#d4c4b3] bg-white flex items-center justify-center mb-4 transition-all duration-300 group-hover:border-[#C8924B] group-hover:shadow-md">
+            <span class="material-symbols-outlined text-[30px] text-[#815512]">vpn_key</span>
+          </div>
+          <h4 class="font-headline-sm text-sm font-semibold text-[#1c1c19] mb-1.5 leading-tight">Off-Market Vault</h4>
+          <p class="text-[11px] text-[#504538] leading-relaxed">Confidential unlisted allocations brokered under strict NDA agreements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BLOG ========== -->
+  <section class="w-full pb-32 bg-[#FCF9F4]">
+    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <span class="text-xs uppercase tracking-[0.25em] text-[#C8924B] font-bold block mb-2">Insights &amp; Ideas</span>
+        <h2 class="font-headline-lg text-3xl md:text-4xl text-[#1c1c19] tracking-tight">From Our Blog</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+        <article class="bg-white rounded-2xl overflow-hidden border border-[#ebdccb]/60 shadow-[0_8px_25px_rgba(0,0,0,0.03)] flex flex-col group hover:-translate-y-1 transition-all duration-300">
+          <div class="relative h-56 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80&auto=format&fit=crop')"></div>
+            <div class="absolute bottom-3 left-3 bg-white/95 rounded-lg px-2.5 py-1 text-center shadow-md">
+              <span class="text-[9px] font-bold text-[#815512] uppercase block tracking-wider leading-none">MAY</span>
+              <span class="text-sm font-extrabold text-[#1c1c19] leading-none">20</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <span class="text-[10px] uppercase tracking-wider text-[#C8924B] font-semibold mb-1 block">Market Analysis • Lagos</span>
+              <h3 class="font-headline-sm text-base text-[#1c1c19] font-semibold mb-3 group-hover:text-[#815512] transition-colors leading-snug">Navigating Prime Lagos: Banana Island vs Eko Atlantic 2025 Outlook</h3>
+              <p class="text-xs text-[#504538] line-clamp-2 leading-relaxed mb-4">Comparative appraisal of sovereign capital preservation, rental dollar yields, and land resilience in Nigeria's top postal codes.</p>
+            </div>
+            <a href="#" class="inline-flex items-center gap-1.5 text-xs text-[#815512] font-semibold uppercase tracking-wider group-hover:text-[#C8924B] transition-colors">
+              <span>Read More</span>
+              <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+            </a>
+          </div>
+        </article>
+        <article class="bg-white rounded-2xl overflow-hidden border border-[#ebdccb]/60 shadow-[0_8px_25px_rgba(0,0,0,0.03)] flex flex-col group hover:-translate-y-1 transition-all duration-300">
+          <div class="relative h-56 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80&auto=format&fit=crop')"></div>
+            <div class="absolute bottom-3 left-3 bg-white/95 rounded-lg px-2.5 py-1 text-center shadow-md">
+              <span class="text-[9px] font-bold text-[#815512] uppercase block tracking-wider leading-none">MAY</span>
+              <span class="text-sm font-extrabold text-[#1c1c19] leading-none">12</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <span class="text-[10px] uppercase tracking-wider text-[#C8924B] font-semibold mb-1 block">Title &amp; Diligence</span>
+              <h3 class="font-headline-sm text-base text-[#1c1c19] font-semibold mb-3 group-hover:text-[#815512] transition-colors leading-snug">Title Due Diligence: Why Governor’s Consent Protects Portfolios</h3>
+              <p class="text-xs text-[#504538] line-clamp-2 leading-relaxed mb-4">Forensic breakdown of perfecting land titles in Lagos and Abuja to eliminate encumbrance risks for diaspora investors.</p>
+            </div>
+            <a href="#" class="inline-flex items-center gap-1.5 text-xs text-[#815512] font-semibold uppercase tracking-wider group-hover:text-[#C8924B] transition-colors">
+              <span>Read More</span>
+              <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+            </a>
+          </div>
+        </article>
+        <article class="bg-white rounded-2xl overflow-hidden border border-[#ebdccb]/60 shadow-[0_8px_25px_rgba(0,0,0,0.03)] flex flex-col group hover:-translate-y-1 transition-all duration-300">
+          <div class="relative h-56 overflow-hidden bg-zinc-100">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80&auto=format&fit=crop')"></div>
+            <div class="absolute bottom-3 left-3 bg-white/95 rounded-lg px-2.5 py-1 text-center shadow-md">
+              <span class="text-[9px] font-bold text-[#815512] uppercase block tracking-wider leading-none">MAY</span>
+              <span class="text-sm font-extrabold text-[#1c1c19] leading-none">05</span>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1 justify-between">
+            <div>
+              <span class="text-[10px] uppercase tracking-wider text-[#C8924B] font-semibold mb-1 block">Smart Living</span>
+              <h3 class="font-headline-sm text-base text-[#1c1c19] font-semibold mb-3 group-hover:text-[#815512] transition-colors leading-snug">The Rise of Smart Autonomous Estates in Maitama &amp; Guzape, Abuja</h3>
+              <p class="text-xs text-[#504538] line-clamp-2 leading-relaxed mb-4">How integrated solar microgrids, off-grid water purification, and biometric vaults redefine sovereign permanence.</p>
+            </div>
+            <a href="#" class="inline-flex items-center gap-1.5 text-xs text-[#815512] font-semibold uppercase tracking-wider group-hover:text-[#C8924B] transition-colors">
+              <span>Read More</span>
+              <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT FORM SECTION ========== -->
+  <section class="w-full bg-[#FCF9F4] pb-24">
+    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
+      <div class="bg-white rounded-3xl border border-[#ebdccb] shadow-[0_20px_60px_rgba(0,0,0,0.05)] p-8 md:p-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <span class="text-xs uppercase tracking-[0.25em] text-[#C8924B] font-bold block mb-2">Get In Touch</span>
+            <h2 class="font-headline-lg text-3xl text-[#1c1c19] mb-4">Request a Private Consultation</h2>
+            <p class="text-sm text-[#504538] leading-relaxed mb-8">Fill out the form and our advisory team will contact you within 24 hours. All discussions are held in strict confidence.</p>
+            <div class="flex flex-col gap-4 text-sm">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#C8924B]">phone</span>
+                <span>+234 803 000 8899</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#C8924B]">mail</span>
+                <span>concierge@fmlproperties.ng</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#C8924B]">location_on</span>
+                <span>14 Alexander Ave, Ikoyi, Lagos &amp; Maitama, Abuja</span>
+              </div>
+            </div>
+          </div>
+          <form class="flex flex-col gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <input type="text" placeholder="Full Name" class="w-full rounded-xl border border-[#d4c4b3] px-4 py-3 text-sm focus:border-[#C8924B] focus:ring-1 focus:ring-[#C8924B] outline-none transition">
+              <input type="email" placeholder="Email Address" class="w-full rounded-xl border border-[#d4c4b3] px-4 py-3 text-sm focus:border-[#C8924B] focus:ring-1 focus:ring-[#C8924B] outline-none transition">
+            </div>
+            <input type="tel" placeholder="Phone Number" class="w-full rounded-xl border border-[#d4c4b3] px-4 py-3 text-sm focus:border-[#C8924B] focus:ring-1 focus:ring-[#C8924B] outline-none transition">
+            <select class="w-full rounded-xl border border-[#d4c4b3] px-4 py-3 text-sm text-[#504538] focus:border-[#C8924B] focus:ring-1 focus:ring-[#C8924B] outline-none transition bg-white">
+              <option>Interested in: Prime Acquisition</option>
+              <option>Interested in: Off-Market Vault</option>
+              <option>Interested in: Commercial Assets</option>
+              <option>Interested in: Title Regularization</option>
+              <option>Interested in: Diaspora Concierge</option>
+            </select>
+            <textarea rows="4" placeholder="Tell us about your requirements..." class="w-full rounded-xl border border-[#d4c4b3] px-4 py-3 text-sm focus:border-[#C8924B] focus:ring-1 focus:ring-[#C8924B] outline-none transition resize-none"></textarea>
+            <button type="submit" class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-md">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
-<!-- DARK CHARCOAL CALLOUT & FOOTER (Matches Bottom Section of Buildora with Curved Wave transition) -->
+
+<!-- ========== FOOTER ========== -->
 <footer class="w-full bg-[#121316] text-white relative pt-20 pb-12 overflow-hidden">
-<!-- Top Curve Wave into Footer -->
-<div class="absolute top-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
-<svg class="relative block w-full h-[60px] md:h-[80px] text-[#FCF9F4]" preserveaspectratio="none" viewbox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
-<path d="M0,0 L1200,0 L1200,40 C1000,100 800,20 600,60 C400,100 200,30 0,50 Z" fill="currentColor"></path>
-</svg>
-</div>
-<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin relative z-20">
-<!-- Callout Box: Let's Build Something Great Together (Exact counterpart to Buildora CTA) -->
-<div class="border-b border-white/10 pb-16 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-<div class="lg:col-span-5">
-<h2 class="font-display-hero text-3xl md:text-4xl text-white font-normal mb-2">
-          Let’s Build <span class="italic text-[#e9c349]">Something Great</span> Together
-        </h2>
-<p class="text-xs sm:text-sm text-zinc-400 mb-6 font-light max-w-md">
-          Have an acquisition or turnkey estate development in mind? Let’s discuss how we can bring your vision to life.
-        </p>
-<a class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300" data-path="contact-us" href="#">
-<span>Get in Touch</span>
-<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-</a>
-</div>
-<!-- Contact Details matching reference icon list -->
-<div class="lg:col-span-4 flex flex-col gap-4 text-xs text-zinc-300">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#e9c349]">
-<span class="material-symbols-outlined text-[16px]">phone</span>
-</div>
-<span>+234 803 000 8899</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#e9c349]">
-<span class="material-symbols-outlined text-[16px]">mail</span>
-</div>
-<span>concierge@fmlproperties.ng</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#e9c349]">
-<span class="material-symbols-outlined text-[16px]">location_on</span>
-</div>
-<span>14 Alexander Ave, Ikoyi, Lagos &amp; Maitama, Abuja</span>
-</div>
-</div>
-<!-- Right Logo & Social Icons -->
-<div class="lg:col-span-3 flex flex-col lg:items-end">
-<div class="flex items-center gap-3 mb-6">
-<img alt="FML Properties Logo" class="h-8 w-auto object-contain brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMP3HgGQSlwC82iUW4YpeFUVfTL_Et1RScxDo7Z6YZ7n7KL2U48CWmlCdH7xr9enzTeQbyTtHSN4m_qZ4nZQk_2fKGYKaxwtXy-CLXLA-VyF1BrY1LawrI9ry947Wo64QJkW-ZiOw2uB2eufdA5ctRERfFR2rWOV5eu-ZXNk3JNeWC7I7637FVYYQO6vy0ke7SnnA3s0FofMgvfPgEmpEkQkWM9tRYGuKEo0gmFrQORuvde0CSTkED"/>
-<div class="flex flex-col">
-<span class="font-headline-sm text-base tracking-wider text-white leading-none font-semibold">FML PROPERTIES</span>
-<span class="text-[9px] tracking-[0.2em] text-[#C8924B] uppercase mt-1">BUILT TO INSPIRE</span>
-</div>
-</div>
-<div class="flex items-center gap-2">
-<a class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:border-[#C8924B] transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">public</span></a>
-<a class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:border-[#C8924B] transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">share</span></a>
-<a class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:border-[#C8924B] transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">mail</span></a>
-</div>
-</div>
-</div>
-<!-- Bottom Copyright & Legal Links -->
-<div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-light">
-<p>© 2025 FML Properties Ltd. All rights reserved. REDAN Licensed &amp; SCUML Certified.</p>
-<div class="flex items-center gap-6">
-<a class="hover:text-zinc-300 transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-zinc-300 transition-colors" href="#">Terms of Service</a>
-</div>
-</div>
-</div>
+  <div class="absolute top-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
+    <svg class="relative block w-full h-[60px] md:h-[80px] text-[#FCF9F4]" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 L1200,0 L1200,40 C1000,100 800,20 600,60 C400,100 200,30 0,50 Z" fill="currentColor"></path>
+    </svg>
+  </div>
+  <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin relative z-20">
+    <div class="border-b border-white/10 pb-16 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-5">
+        <h2 class="font-display-hero text-3xl md:text-4xl text-white font-normal mb-2">Let’s Build <span class="italic text-[#e9c349]">Something Great</span> Together</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 mb-6 font-light max-w-md">Have an acquisition or turnkey estate development in mind? Let’s discuss how we can bring your vision to life.</p>
+        <a href="contact.html" class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300">
+          <span>Get in Touch</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+      </div>
+      <div class="lg:col-span-4 flex flex-col gap-4 text-xs text-zinc-300">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#e9c349]">
+            <span class="material-symbols-outlined text-[16px]">phone</span>
+          </div>
+          <span>+234 803 000 8899</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#e9c349]">
+            <span class="material-symbols-outlined text-[16px]">mail</span>
+          </div>
+          <span>concierge@fmlproperties.ng</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#e9c349]">
+            <span class="material-symbols-outlined text-[16px]">location_on</span>
+          </div>
+          <span>14 Alexander Ave, Ikoyi, Lagos &amp; Maitama, Abuja</span>
+        </div>
+      </div>
+      <div class="lg:col-span-3 flex flex-col lg:items-end">
+        <div class="flex items-center gap-3 mb-6">
+          <img alt="FML Properties Logo" class="h-8 w-auto object-contain brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMP3HgGQSlwC82iUW4YpeFUVfTL_Et1RScxDo7Z6YZ7n7KL2U48CWmlCdH7xr9enzTeQbyTtHSN4m_qZ4nZQk_2fKGYKaxwtXy-CLXLA-VyF1BrY1LawrI9ry947Wo64QJkW-ZiOw2uB2eufdA5ctRERfFR2rWOV5eu-ZXNk3JNeWC7I7637FVYYQO6vy0ke7SnnA3s0FofMgvfPgEmpEkQkWM9tRYGuKEo0gmFrQORuvde0CSTkED"/>
+          <div class="flex flex-col">
+            <span class="font-headline-sm text-base tracking-wider text-white leading-none font-semibold">FML PROPERTIES</span>
+            <span class="text-[9px] tracking-[0.2em] text-[#C8924B] uppercase mt-1">BUILT TO INSPIRE</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:border-[#C8924B] transition-colors"><span class="material-symbols-outlined text-[16px]">public</span></a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:border-[#C8924B] transition-colors"><span class="material-symbols-outlined text-[16px]">share</span></a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:border-[#C8924B] transition-colors"><span class="material-symbols-outlined text-[16px]">mail</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-light">
+      <p>© 2025 FML Properties Ltd. All rights reserved. REDAN Licensed &amp; SCUML Certified.</p>
+      <div class="flex items-center gap-6">
+        <a class="hover:text-zinc-300 transition-colors" href="#">Privacy Policy</a>
+        <a class="hover:text-zinc-300 transition-colors" href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
 </footer>
-</body></html>
+
+<!-- ========== CONSULTATION POPUP MODAL ========== -->
+<div id="consultModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden transition-opacity duration-300">
+  <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 relative animate-[fadeIn_0.3s_ease]">
+    <button id="closeModalBtn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f0ede9] flex items-center justify-center text-[#504538] hover:bg-[#d4c4b3] transition">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 rounded-full bg-[#C8924B]/20 flex items-center justify-center mx-auto mb-3">
+        <span class="material-symbols-outlined text-[#815512] text-[32px]">support_agent</span>
+      </div>
+      <h3 class="font-headline-md text-2xl text-[#1c1c19] mb-2">Request Consultation</h3>
+      <p class="text-sm text-[#504538]">Our advisory team will get back to you shortly.</p>
+    </div>
+    <form class="flex flex-col gap-4">
+      <input type="text" placeholder="Full Name" class="w-full rounded-xl border border-[#d4c4b3] px-4 py-3 text-sm focus:border-[#C8924B] focus:ring-1 focus:ring-[#C8924B] outline-none transition">
+      <input type="email" placeholder="Email Address" class="w-full rounded-xl border border-[#d4c4b3] px-4 py-3 text-sm focus:border-[#C8924B] focus:ring-1 focus:ring-[#C8924B] outline-none transition">
+      <input type="tel" placeholder="Phone Number" class="w-full rounded-xl border border-[#d4c4b3] px-4 py-3 text-sm focus:border-[#C8924B] focus:ring-1 focus:ring-[#C8924B] outline-none transition">
+      <select class="w-full rounded-xl border border-[#d4c4b3] px-4 py-3 text-sm text-[#504538] focus:border-[#C8924B] focus:ring-1 focus:ring-[#C8924B] outline-none transition bg-white">
+        <option>Consultation Type: Prime Acquisition</option>
+        <option>Consultation Type: Off-Market Vault</option>
+        <option>Consultation Type: Commercial Assets</option>
+        <option>Consultation Type: Diaspora Concierge</option>
+        <option>Consultation Type: Title Regularization</option>
+      </select>
+      <button type="submit" class="mt-2 w-full inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-md">
+        Submit Request
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ========== CONSULTATION MODAL SCRIPT ========== -->
+<script>
+  (function() {
+    const modal = document.getElementById('consultModal');
+    const openBtn = document.getElementById('consultBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close when clicking outside modal content
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // Add a small fadeIn animation via CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
+  })();
+</script>
+
+</body>
+</html>
