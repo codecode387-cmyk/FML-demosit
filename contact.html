@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_standard" name="shell-type">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    /* Mobile menu slide */
+    .mobile-menu-panel {
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu-panel.open { transform: translateX(0); }
+    .mobile-menu-overlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .mobile-menu-overlay.open { opacity: 1; pointer-events: auto; }
+    /* Prevent horizontal overflow */
+    html, body { max-width: 100%; overflow-x: hidden; }
+    /* Mobile tweaks */
+    @media (max-width: 640px) {
+      .font-headline-xl { font-size: 2rem !important; line-height: 2.4rem !important; }
+      .font-headline-lg { font-size: 1.75rem !important; line-height: 2rem !important; }
+      .font-headline-md { font-size: 1.25rem !important; line-height: 1.6rem !important; }
+      .font-display-hero { font-size: 2.25rem !important; line-height: 1.15 !important; }
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "outline-variant": "#d4c4b3",
+            "secondary-container": "#e2e2e8",
+            "on-surface-variant": "#504538",
+            "background": "#fcf9f4",
+            "on-secondary-fixed-variant": "#45474b",
+            "inverse-surface": "#31302d",
+            "surface-tint": "#815512",
+            "surface-container": "#f0ede9",
+            "outline": "#827567",
+            "on-tertiary-container": "#4c2e00",
+            "surface-container-high": "#ebe8e3",
+            "secondary-fixed": "#e2e2e8",
+            "surface-dim": "#dcdad5",
+            "inverse-on-surface": "#f3f0eb",
+            "error-container": "#ffdad6",
+            "tertiary": "#805619",
+            "on-tertiary-fixed": "#2a1700",
+            "primary-container": "#c8924b",
+            "on-background": "#1c1c19",
+            "tertiary-container": "#c69351",
+            "on-primary-container": "#4b2d00",
+            "primary": "#815512",
+            "secondary": "#5d5e63",
+            "surface-container-low": "#f6f3ee",
+            "on-secondary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#653e01",
+            "secondary-fixed-dim": "#c6c6cb",
+            "inverse-primary": "#f7bb70",
+            "tertiary-fixed-dim": "#f5bc76",
+            "on-secondary-fixed": "#1a1c20",
+            "on-primary-fixed": "#2a1700",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#e5e2dd",
+            "primary-fixed-dim": "#f7bb70",
+            "tertiary-fixed": "#ffddb7",
+            "surface-variant": "#e5e2dd",
+            "surface-bright": "#fcf9f4",
+            "primary-fixed": "#ffddb7",
+            "on-error-container": "#93000a",
+            "on-primary-fixed-variant": "#653e00",
+            "error": "#ba1a1a",
+            "on-surface": "#1c1c19",
+            "surface": "#fcf9f4",
+            "on-secondary-container": "#636469",
+            "surface-container-lowest": "#ffffff"
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          spacing: {
+            "gutter-mobile": "1rem",
+            "space-sm": "0.75rem",
+            "margin": "4rem",
+            "gutter": "1.5rem",
+            "space-xs": "0.375rem",
+            "space-lg": "2rem",
+            "space-2xl": "6rem",
+            "space-xl": "3.5rem",
+            "margin-mobile": "1.25rem",
+            "space-md": "1.25rem"
+          },
+          fontFamily: {
+            "label-uppercase": ["Plus Jakarta Sans"],
+            "headline-lg": ["Playfair Display"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Playfair Display"],
+            "display-hero": ["Playfair Display"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Playfair Display"],
+            "label-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-xl": ["Playfair Display"],
+            "display-hero-mobile": ["Playfair Display"],
+            "metric-huge": ["Playfair Display"]
+          },
+          fontSize: {
+            "label-uppercase": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.15em", "fontWeight": "700" }],
+            "headline-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "body-lg": ["1.125rem", { "lineHeight": "1.75rem", "fontWeight": "400" }],
+            "headline-xl-mobile": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-hero": ["3.75rem", { "lineHeight": "4.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["0.875rem", { "lineHeight": "1.4rem", "fontWeight": "400" }],
+            "headline-md": ["1.5rem", { "lineHeight": "2rem", "fontWeight": "500" }],
+            "label-md": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "600" }],
+            "headline-sm": ["1.125rem", { "lineHeight": "1.6rem", "fontWeight": "600" }],
+            "body-md": ["1rem", { "lineHeight": "1.6rem", "fontWeight": "400" }],
+            "headline-xl": ["2.75rem", { "lineHeight": "3.25rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "display-hero-mobile": ["2.5rem", { "lineHeight": "3rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "metric-huge": ["4.5rem", { "lineHeight": "4.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- ========== HEADER ========== -->
+<header class="fixed top-0 w-full z-50 bg-[#16171b]/95 backdrop-blur-xl border-b border-[#28292e] shadow-xl">
+  <div class="h-20 max-w-[1440px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md">
+    <div class="flex items-center gap-space-md">
+      <a class="flex items-center gap-3" href="index.html">
+        <img alt="FML Properties Logo" class="h-8 w-auto object-contain brightness-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMP3HgGQSlwC82iUW4YpeFUVfTL_Et1RScxDo7Z6YZ7n7KL2U48CWmlCdH7xr9enzTeQbyTtHSN4m_qZ4nZQk_2fKGYKaxwtXy-CLXLA-VyF1BrY1LawrI9ry947Wo64QJkW-ZiOw2uB2eufdA5ctRERfFR2rWOV5eu-ZXNk3JNeWC7I7637FVYYQO6vy0ke7SnnA3s0FofMgvfPgEmpEkQkWM9tRYGuKEo0gmFrQORuvde0CSTkED"/>
+        <div class="flex flex-col justify-center">
+          <span class="font-headline-sm text-white tracking-tight leading-none text-base sm:text-lg">FML PROPERTIES</span>
+          <span class="font-label-uppercase text-[10px] tracking-widest text-[#d8a867] uppercase mt-1">LAGOS • ABUJA</span>
+        </div>
+      </a>
+    </div>
+    <nav class="hidden xl:flex items-center gap-space-lg">
+      <a class="font-label-uppercase text-xs tracking-widest text-[#c7c6cb] hover:text-white transition-colors duration-200" href="index.html">Home</a>
+      <a class="font-label-uppercase text-xs tracking-widest text-[#c7c6cb] hover:text-white transition-colors duration-200" href="about.html">About Us</a>
+      <a class="font-label-uppercase text-xs tracking-widest text-[#c7c6cb] hover:text-white transition-colors duration-200" href="pro.html">Available Properties</a>
+      <a aria-current="page" class="font-label-uppercase text-xs tracking-widest transition-colors duration-200 text-[#d8a867] font-bold relative after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-[2px] after:bg-[#c8924b]" href="contact.html">Contact Us</a>
+    </nav>
+    <div class="flex items-center gap-space-md">
+      <div class="hidden lg:flex flex-col items-end text-right">
+        <span class="font-label-md text-white font-semibold tracking-wider text-sm">+234 803 000 8899</span>
+        <span class="font-label-uppercase text-[10px] text-[#9a99a0] tracking-widest">Ikoyi, Lagos</span>
+      </div>
+      <a class="hidden sm:inline-flex items-center justify-center px-6 py-3 bg-[#c8924b] hover:bg-[#b07d39] text-white font-label-uppercase text-xs tracking-widest rounded-md transition-all duration-300 shadow-[0_4px_16px_rgba(200,146,75,0.35)]" href="contact.html">
+        Schedule a Private Viewing
+      </a>
+      <div class="w-9 h-9 rounded-full bg-[#27282e] border border-[#3e3f46] flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-[#d8a867] text-[20px]">person</span>
+      </div>
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" class="xl:hidden w-10 h-10 rounded-full bg-[#27282e] border border-[#3e3f46] flex items-center justify-center text-white hover:bg-[#3e3f46] transition-colors" aria-label="Open menu">
+        <span class="material-symbols-outlined text-[24px]">menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ========== MOBILE MENU ========== -->
+<div id="mobileMenuOverlay" class="mobile-menu-overlay fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm xl:hidden"></div>
+<div id="mobileMenuPanel" class="mobile-menu-panel fixed top-0 right-0 z-[70] h-full w-[85%] max-w-sm bg-[#16171b] border-l border-[#28292e] shadow-2xl xl:hidden flex flex-col">
+  <div class="flex items-center justify-between px-6 py-5 border-b border-[#28292e]">
+    <div class="flex items-center gap-3">
+      <img alt="FML Properties Logo" class="h-7 w-auto object-contain brightness-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMP3HgGQSlwC82iUW4YpeFUVfTL_Et1RScxDo7Z6YZ7n7KL2U48CWmlCdH7xr9enzTeQbyTtHSN4m_qZ4nZQk_2fKGYKaxwtXy-CLXLA-VyF1BrY1LawrI9ry947Wo64QJkW-ZiOw2uB2eufdA5ctRERfFR2rWOV5eu-ZXNk3JNeWC7I7637FVYYQO6vy0ke7SnnA3s0FofMgvfPgEmpEkQkWM9tRYGuKEo0gmFrQORuvde0CSTkED"/>
+      <span class="text-white font-headline-sm text-sm tracking-wider font-semibold">FML PROPERTIES</span>
+    </div>
+    <button id="closeMobileMenuBtn" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white transition-colors" aria-label="Close menu">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+  </div>
+  <nav class="flex flex-col px-6 py-8 gap-1 text-sm">
+    <a href="index.html" class="flex items-center justify-between py-4 border-b border-white/5 text-zinc-200 hover:text-[#c8924b] uppercase tracking-widest transition-colors">
+      <span>Home</span>
+      <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+    </a>
+    <a href="about.html" class="flex items-center justify-between py-4 border-b border-white/5 text-zinc-200 hover:text-[#c8924b] uppercase tracking-widest transition-colors">
+      <span>About Us</span>
+      <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+    </a>
+    <a href="pro.html" class="flex items-center justify-between py-4 border-b border-white/5 text-zinc-200 hover:text-[#c8924b] uppercase tracking-widest transition-colors">
+      <span>Available Properties</span>
+      <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+    </a>
+    <a href="contact.html" class="flex items-center justify-between py-4 border-b border-white/5 text-[#c8924b] font-semibold uppercase tracking-widest">
+      <span>Contact Us</span>
+      <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+    </a>
+  </nav>
+  <div class="px-6 py-6 mt-auto border-t border-white/10">
+    <div class="flex items-center gap-3 text-xs text-zinc-400 mb-2">
+      <span class="material-symbols-outlined text-[#c8924b] text-[16px]">phone</span>
+      <span>+234 803 000 8899</span>
+    </div>
+    <div class="flex items-center gap-3 text-xs text-zinc-400 mb-5">
+      <span class="material-symbols-outlined text-[#c8924b] text-[16px]">location_on</span>
+      <span>Ikoyi, Lagos &amp; Maitama, Abuja</span>
+    </div>
+    <a href="contact.html" class="w-full inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-[#c8924b] hover:bg-[#b5803a] text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-md">
+      <span class="material-symbols-outlined text-[18px] mr-2">calendar_month</span>
+      Schedule Private Viewing
+    </a>
+  </div>
+</div>
+
+<!-- ========== MAIN ========== -->
+<main class="w-full pt-20 bg-[#FCF9F4] min-h-screen">
+  <div class="flex flex-col w-full">
+
+    <!-- ===== SECTION 1 & 2: PAGE HEADER & CONTACT HUB ===== -->
+    <div class="relative w-full bg-[#FCF9F4] overflow-hidden">
+      <div class="absolute -top-24 right-10 w-96 h-96 bg-[#c8924b]/5 rounded-full blur-[100px] pointer-events-none"></div>
+      <div class="absolute top-1/2 -left-20 w-80 h-80 bg-[#d4c4b3]/20 rounded-full blur-[80px] pointer-events-none"></div>
+
+      <!-- Header -->
+      <section class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-space-xl pb-space-lg relative z-10">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-white border border-[#E6E1D8] rounded-full mb-space-md shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-[#c8924b] animate-pulse"></span>
+              <span class="font-label-uppercase text-[11px] tracking-widest text-[#815512]">Private Client Secretariat</span>
+              <span class="text-outline-variant text-[11px]">|</span>
+              <span class="font-label-uppercase text-[11px] text-on-surface-variant tracking-wider">Lagos • Abuja • London</span>
+            </div>
+            <h1 class="font-headline-xl text-3xl sm:text-4xl md:text-[2.75rem] text-[#1c1c19] tracking-tight leading-[1.12]">
+              Connect With Our <br/>
+              <span class="italic font-headline-xl text-[#815512]">Private Client Advisory</span>
+            </h1>
+            <p class="mt-space-md font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+              Whether acquiring a landmark residence in Lagos, commissioning an estate in Abuja, or seeking diaspora wealth deployment, our partners are at your sovereign disposal.
+            </p>
+          </div>
+          <div class="flex flex-wrap lg:flex-col items-start lg:items-end gap-space-sm shrink-0">
+            <div class="px-5 py-3.5 bg-white border border-[#E6E1D8] shadow-sm rounded-lg flex items-center gap-4">
+              <span class="material-symbols-outlined text-[#815512] text-[24px]">verified_user</span>
+              <div>
+                <p class="font-label-uppercase text-[10px] text-on-surface-variant tracking-wider">Protocol Assurance</p>
+                <p class="font-headline-sm text-sm sm:text-base text-[#1c1c19] leading-tight">REDAN Licensed &amp; NDPR</p>
+              </div>
+            </div>
+            <div class="px-5 py-3.5 bg-white border border-[#E6E1D8] shadow-sm rounded-lg flex items-center gap-4">
+              <span class="material-symbols-outlined text-[#c8924b] text-[24px]">timer</span>
+              <div>
+                <p class="font-label-uppercase text-[10px] text-on-surface-variant tracking-wider">Direct SLA</p>
+                <p class="font-headline-sm text-sm sm:text-base text-[#1c1c19] leading-tight">&lt; 90 Min Partner Callback</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Hub -->
+      <section class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pb-space-2xl relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-space-xl">
+
+          <!-- Left Column: Offices -->
+          <div class="lg:col-span-5 flex flex-col gap-space-md">
+            <!-- WhatsApp -->
+            <a class="group relative overflow-hidden bg-white border border-[#E6E1D8] rounded-xl p-space-md transition-all duration-300 shadow-sm hover:shadow-md hover:border-[#c8924b]/60" href="https://wa.me/2348030008899" rel="noopener noreferrer" target="_blank">
+              <div class="flex items-center justify-between gap-space-md">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-lg bg-[#FCF9F4] border border-[#E6E1D8] flex items-center justify-center shrink-0 group-hover:bg-[#815512] transition-colors duration-300">
+                    <span class="material-symbols-outlined text-[#815512] group-hover:text-white text-[26px]">chat</span>
+                  </div>
+                  <div>
+                    <span class="font-label-uppercase text-[10px] text-[#815512] uppercase tracking-widest block font-bold">Immediate Engagement</span>
+                    <p class="font-headline-sm text-base text-[#1c1c19]">VIP WhatsApp Concierge</p>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">+234 803 000 8899 (Encrypted Desk)</p>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-[#815512] group-hover:translate-x-1 transition-transform duration-200">arrow_forward</span>
+              </div>
+            </a>
+
+            <!-- Lagos -->
+            <div class="bg-white border border-[#E6E1D8] rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow duration-300 relative overflow-hidden">
+              <div class="flex items-start justify-between mb-space-sm">
+                <div>
+                  <span class="font-label-uppercase text-[10px] text-[#815512] uppercase tracking-widest block font-bold">Flagship Secretariat</span>
+                  <h3 class="font-headline-sm text-lg text-[#1c1c19] mt-1">Lagos Headquarters</h3>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-[#FCF9F4] border border-[#E6E1D8] flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[#815512] text-[24px]">domain</span>
+                </div>
+              </div>
+              <p class="font-body-md text-body-md text-[#1c1c19] font-medium mb-space-xs">14 Alexander Avenue, Ikoyi, Lagos, Nigeria</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md leading-relaxed">Prominently positioned off Glover Road within Old Ikoyi diplomatic perimeter.</p>
+              <div class="space-y-space-sm pt-space-xs font-body-sm border-t border-[#F0ECE4]">
+                <div class="flex items-center gap-3 pt-2">
+                  <span class="material-symbols-outlined text-[#815512] text-[18px]">call</span>
+                  <span class="text-[#1c1c19] font-medium">+234 1 295 4400 / +234 803 000 8899</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-[#815512] text-[18px]">schedule</span>
+                  <span class="text-on-surface-variant">Mon – Fri: 8:00 AM – 6:00 PM WAT <span class="text-[#815512] font-semibold">(Weekend by Appt)</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Abuja -->
+            <div class="bg-white border border-[#E6E1D8] rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow duration-300 relative overflow-hidden">
+              <div class="flex items-start justify-between mb-space-sm">
+                <div>
+                  <span class="font-label-uppercase text-[10px] text-[#815512] uppercase tracking-widest block font-bold">Federal Capital Territory</span>
+                  <h3 class="font-headline-sm text-lg text-[#1c1c19] mt-1">Abuja Diplomatic Office</h3>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-[#FCF9F4] border border-[#E6E1D8] flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[#815512] text-[24px]">apartment</span>
+                </div>
+              </div>
+              <p class="font-body-md text-body-md text-[#1c1c19] font-medium mb-space-xs">22 Amazon Street, Off Alvan Ikoku Way, Maitama, Abuja, FCT</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md leading-relaxed">Secure private parking &amp; confidential reception lounge for institutional portfolios.</p>
+              <div class="space-y-space-sm pt-space-xs font-body-sm border-t border-[#F0ECE4]">
+                <div class="flex items-center gap-3 pt-2">
+                  <span class="material-symbols-outlined text-[#815512] text-[18px]">call</span>
+                  <span class="text-[#1c1c19] font-medium">+234 9 291 7733 / +234 812 888 7766</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-[#815512] text-[18px]">schedule</span>
+                  <span class="text-on-surface-variant">Mon – Fri: 9:00 AM – 5:30 PM WAT</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- London -->
+            <div class="bg-white border border-[#E6E1D8] rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow duration-300 relative overflow-hidden">
+              <div class="flex items-start justify-between mb-space-sm">
+                <div>
+                  <span class="font-label-uppercase text-[10px] text-[#815512] uppercase tracking-widest block font-bold">Diaspora &amp; Institutional desk</span>
+                  <h3 class="font-headline-sm text-lg text-[#1c1c19] mt-1">London Mayfair Suite</h3>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-[#FCF9F4] border border-[#E6E1D8] flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[#815512] text-[24px]">public</span>
+                </div>
+              </div>
+              <p class="font-body-md text-body-md text-[#1c1c19] font-medium mb-space-xs">Mayfair Executive Suite, 12 Berkeley Square, London W1J 6BD</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md leading-relaxed">Coordinating repatriated capital, cross-border settlements, and dollar escrow facilities.</p>
+              <div class="space-y-space-sm pt-space-xs font-body-sm border-t border-[#F0ECE4]">
+                <div class="flex items-center gap-3 pt-2">
+                  <span class="material-symbols-outlined text-[#815512] text-[18px]">call</span>
+                  <span class="text-[#1c1c19] font-medium">+44 20 7946 0912</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-[#815512] text-[18px]">mail</span>
+                  <span class="text-[#815512] font-medium">privateclient@fmlproperties.ng</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-[#815512] text-[18px]">gavel</span>
+                  <span class="text-on-surface-variant">Title &amp; Legal: <span class="text-[#1c1c19] font-medium">legal@fmlproperties.ng</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Form -->
+          <div class="lg:col-span-7">
+            <div class="bg-white border border-[#E6E1D8] rounded-2xl p-space-md md:p-space-lg lg:p-space-xl shadow-lg relative">
+              <div class="flex items-center justify-between pb-space-md border-b border-[#F0ECE4] mb-space-md">
+                <div>
+                  <span class="font-label-uppercase text-[11px] text-[#815512] uppercase tracking-widest block font-bold">Confidential Briefing</span>
+                  <h2 class="font-headline-md text-2xl text-[#1c1c19] mt-1">VIP Acquisition Request</h2>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-[#FCF9F4] border border-[#E6E1D8] flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[#815512]">security</span>
+                </div>
+              </div>
+              <form class="space-y-space-md" id="vipInquiryForm" onsubmit="event.preventDefault(); document.getElementById('successToast').classList.remove('hidden');">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                  <div>
+                    <label class="block font-label-uppercase text-[11px] text-[#504538] uppercase tracking-wider mb-2">Principal Full Name *</label>
+                    <input class="w-full bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg px-4 py-3 font-body-md text-body-md text-[#1c1c19] placeholder:text-[#9e968b] focus:bg-white focus:border-[#c8924b] focus:ring-1 focus:ring-[#c8924b] focus:outline-none transition-colors duration-200" placeholder="e.g. Dr. Hakeem Adeleke, SAN" required type="text">
+                  </div>
+                  <div>
+                    <label class="block font-label-uppercase text-[11px] text-[#504538] uppercase tracking-wider mb-2">Confidential Email *</label>
+                    <input class="w-full bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg px-4 py-3 font-body-md text-body-md text-[#1c1c19] placeholder:text-[#9e968b] focus:bg-white focus:border-[#c8924b] focus:ring-1 focus:ring-[#c8924b] focus:outline-none transition-colors duration-200" placeholder="principal@holdingcorp.ng" required type="email">
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                  <div>
+                    <label class="block font-label-uppercase text-[11px] text-[#504538] uppercase tracking-wider mb-2">Direct Phone / WhatsApp *</label>
+                    <div class="flex">
+                      <select class="bg-[#F0EDE9] border border-r-0 border-[#E6E1D8] rounded-l-lg text-[#1c1c19] px-3 py-3 font-body-sm text-body-sm focus:outline-none">
+                        <option value="+234">NG +234</option>
+                        <option value="+44">UK +44</option>
+                        <option value="+1">US/CA +1</option>
+                        <option value="+971">UAE +971</option>
+                        <option value="+41">CH +41</option>
+                      </select>
+                      <input class="w-full bg-[#FCF9F4] border border-[#E6E1D8] rounded-r-lg px-4 py-3 font-body-md text-body-md text-[#1c1c19] placeholder:text-[#9e968b] focus:bg-white focus:border-[#c8924b] focus:ring-1 focus:ring-[#c8924b] focus:outline-none transition-colors duration-200" placeholder="803 000 0000" required type="tel">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block font-label-uppercase text-[11px] text-[#504538] uppercase tracking-wider mb-2">Country of Tax / Residence *</label>
+                    <select class="w-full bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg text-[#1c1c19] px-4 py-3 font-body-md text-body-md focus:bg-white focus:border-[#c8924b] focus:ring-1 focus:ring-[#c8924b] focus:outline-none transition-colors duration-200">
+                      <option value="nigeria">Nigeria (Domestic)</option>
+                      <option value="uk">United Kingdom (Diaspora)</option>
+                      <option value="us">United States (Diaspora)</option>
+                      <option value="canada">Canada</option>
+                      <option value="uae">United Arab Emirates</option>
+                      <option value="other">Other Sovereign Jurisdiction</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="pt-space-xs">
+                  <label class="block font-label-uppercase text-[11px] text-[#504538] uppercase tracking-wider mb-3">Prime Enclaves of Interest</label>
+                  <div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm">
+                    <label class="flex items-center gap-3 p-3 bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg cursor-pointer hover:border-[#c8924b] transition-colors">
+                      <input class="accent-[#c8924b] w-4 h-4 rounded text-[#c8924b] focus:ring-[#c8924b]" name="enclave" type="checkbox" value="banana-island">
+                      <span class="font-body-sm text-body-sm text-[#1c1c19]">Banana Island</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg cursor-pointer hover:border-[#c8924b] transition-colors">
+                      <input checked class="accent-[#c8924b] w-4 h-4 rounded text-[#c8924b] focus:ring-[#c8924b]" name="enclave" type="checkbox" value="ikoyi">
+                      <span class="font-body-sm text-body-sm text-[#1c1c19]">Old Ikoyi</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg cursor-pointer hover:border-[#c8924b] transition-colors">
+                      <input class="accent-[#c8924b] w-4 h-4 rounded text-[#c8924b] focus:ring-[#c8924b]" name="enclave" type="checkbox" value="eko-atlantic">
+                      <span class="font-body-sm text-body-sm text-[#1c1c19]">Eko Atlantic</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg cursor-pointer hover:border-[#c8924b] transition-colors">
+                      <input class="accent-[#c8924b] w-4 h-4 rounded text-[#c8924b] focus:ring-[#c8924b]" name="enclave" type="checkbox" value="lekki-1">
+                      <span class="font-body-sm text-body-sm text-[#1c1c19]">Lekki Phase 1</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg cursor-pointer hover:border-[#c8924b] transition-colors">
+                      <input checked class="accent-[#c8924b] w-4 h-4 rounded text-[#c8924b] focus:ring-[#c8924b]" name="enclave" type="checkbox" value="maitama">
+                      <span class="font-body-sm text-body-sm text-[#1c1c19]">Maitama, Abuja</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg cursor-pointer hover:border-[#c8924b] transition-colors">
+                      <input class="accent-[#c8924b] w-4 h-4 rounded text-[#c8924b] focus:ring-[#c8924b]" name="enclave" type="checkbox" value="guzape">
+                      <span class="font-body-sm text-body-sm text-[#1c1c19]">Guzape Diplomatic</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+                  <div>
+                    <label class="block font-label-uppercase text-[11px] text-[#504538] uppercase tracking-wider mb-2">Target Budget Allocation</label>
+                    <select class="w-full bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg text-[#1c1c19] px-4 py-3 font-body-md text-body-md focus:bg-white focus:border-[#c8924b] focus:ring-1 focus:ring-[#c8924b] focus:outline-none transition-colors duration-200">
+                      <option value="tier1">₦500M — ₦1.5B (Entry Prime)</option>
+                      <option selected value="tier2">₦1.5B — ₦5B (Ultra-Luxury Trophy)</option>
+                      <option value="tier3">₦5B+ / $5M USD+ (Sovereign Estate)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block font-label-uppercase text-[11px] text-[#504538] uppercase tracking-wider mb-2">Mandate Scope</label>
+                    <select class="w-full bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg text-[#1c1c19] px-4 py-3 font-body-md text-body-md focus:bg-white focus:border-[#c8924b] focus:ring-1 focus:ring-[#c8924b] focus:outline-none transition-colors duration-200">
+                      <option value="outright">Outright Trophy Acquisition</option>
+                      <option value="offmarket">Confidential Off-Market Dossier</option>
+                      <option value="joint-venture">Joint Venture Land Development</option>
+                      <option value="title-audit">Title Audit &amp; C of O Verification</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label class="block font-label-uppercase text-[11px] text-[#504538] uppercase tracking-wider mb-2">Specific Architectural Directives or Brief</label>
+                  <textarea class="w-full bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg px-4 py-3 font-body-md text-body-md text-[#1c1c19] placeholder:text-[#9e968b] focus:bg-white focus:border-[#c8924b] focus:ring-1 focus:ring-[#c8924b] focus:outline-none transition-colors duration-200 resize-none" placeholder="Detail specific spatial requirements (e.g., Waterfront jetty frontage, 6-bedroom smart automation, helipad proximity, private cinema, multi-car underground vault)..." rows="4"></textarea>
+                </div>
+                <div class="pt-space-xs">
+                  <button class="w-full py-4 px-8 bg-[#c8924b] hover:bg-[#b07d39] text-white font-label-uppercase text-xs tracking-widest font-bold rounded-lg shadow-[0_8px_25px_rgba(200,146,75,0.3)] hover:shadow-[0_12px_32px_rgba(200,146,75,0.45)] transition-all duration-300" type="submit">
+                    Submit Confidential Inquiry
+                  </button>
+                </div>
+                <div class="flex items-start gap-3 p-3.5 bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg text-on-surface-variant font-body-sm text-body-sm">
+                  <span class="material-symbols-outlined text-[#815512] text-[18px] shrink-0 mt-0.5">lock</span>
+                  <p>All client information is protected under binding Non-Disclosure Agreements (NDA) and Nigerian Data Protection Regulation (NDPR). Strict discretion guaranteed.</p>
+                </div>
+                <div class="hidden p-4 bg-[#815512] text-white rounded-lg font-body-md text-body-md flex items-center justify-between shadow-xl" id="successToast">
+                  <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined font-bold">check_circle</span>
+                    <span>Your confidential inquiry has been routed to Senior Partner Desk. Expect contact within 90 minutes.</span>
+                  </div>
+                  <button class="text-white hover:text-white/80" onclick="document.getElementById('successToast').classList.add('hidden')" type="button">
+                    <span class="material-symbols-outlined">close</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== SECTION 3: VIP LOGISTICS (DARK) ===== -->
+    <div class="relative w-full bg-[#18191e] text-white overflow-hidden">
+      <div class="w-full overflow-hidden leading-none -translate-y-[1px]">
+        <svg class="relative block w-full h-12 md:h-20 text-[#FCF9F4]" preserveAspectRatio="none" viewBox="0 0 1200 120">
+          <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,0 L0,0 Z" fill="currentColor"></path>
+        </svg>
+      </div>
+      <section class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-space-md pb-space-2xl relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+          <div class="lg:col-span-5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#24252c] border border-[#373842] rounded-full mb-space-sm">
+              <span class="material-symbols-outlined text-[#d8a867] text-[16px]">flight</span>
+              <span class="font-label-uppercase text-[10px] uppercase tracking-widest text-[#d8a867]">VIP Transit Logistics</span>
+            </div>
+            <h2 class="font-headline-lg text-2xl md:text-3xl lg:text-[2.25rem] text-white tracking-tight mb-space-sm leading-snug">Private Chauffeur &amp; Yacht Inspection Protocol</h2>
+            <p class="font-body-md text-body-md text-[#b4b3ba] mb-space-md leading-relaxed">For high-profile principals, diplomats, and international investors, on-site evaluations demand absolute safety, speed, and discretion. FML Properties maintains dedicated VIP transit infrastructure.</p>
+            <div class="flex items-center gap-space-md">
+              <a class="px-6 py-3.5 bg-[#25262e] border border-[#3e3f4b] hover:border-[#d8a867] hover:bg-[#c8924b] hover:text-white text-white font-label-uppercase text-xs uppercase tracking-wider rounded-lg transition-all duration-300 inline-flex items-center gap-2" href="#vipInquiryForm">
+                <span>Book Protocol Transit</span>
+                <span class="material-symbols-outlined text-[16px]">north_east</span>
+              </a>
+            </div>
+          </div>
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-space-sm">
+            <div class="bg-[#202127] border border-[#32333d] rounded-xl p-space-md flex flex-col justify-between hover:border-[#c8924b]/50 transition-colors duration-300">
+              <div>
+                <div class="w-11 h-11 rounded-lg bg-[#292b34] border border-[#3d3f4c] flex items-center justify-center mb-space-sm text-[#d8a867]"><span class="material-symbols-outlined text-[24px]">directions_car</span></div>
+                <h4 class="font-headline-sm text-base text-white mb-2">Armored Escort</h4>
+                <p class="font-body-sm text-body-sm text-[#a5a4ad] leading-relaxed">Direct tarmac pickup from Murtala Muhammed VIP wing (LOS) or Nnamdi Azikiwe International (ABV) in bulletproof executive SUVs.</p>
+              </div>
+              <span class="font-label-uppercase text-[10px] text-[#d8a867] uppercase tracking-widest mt-space-md block font-semibold">B6 Ballistic Rated</span>
+            </div>
+            <div class="bg-[#202127] border border-[#32333d] rounded-xl p-space-md flex flex-col justify-between hover:border-[#c8924b]/50 transition-colors duration-300">
+              <div>
+                <div class="w-11 h-11 rounded-lg bg-[#292b34] border border-[#3d3f4c] flex items-center justify-center mb-space-sm text-[#d8a867]"><span class="material-symbols-outlined text-[24px]">directions_boat</span></div>
+                <h4 class="font-headline-sm text-base text-white mb-2">Waterfront Tender</h4>
+                <p class="font-body-sm text-body-sm text-[#a5a4ad] leading-relaxed">Private luxury boat charter navigating directly to the deep-water jetties of Banana Island, Victoria Island, and Eko Atlantic.</p>
+              </div>
+              <span class="font-label-uppercase text-[10px] text-[#d8a867] uppercase tracking-widest mt-space-md block font-semibold">Lagoon Express</span>
+            </div>
+            <div class="bg-[#202127] border border-[#32333d] rounded-xl p-space-md flex flex-col justify-between hover:border-[#c8924b]/50 transition-colors duration-300">
+              <div>
+                <div class="w-11 h-11 rounded-lg bg-[#292b34] border border-[#3d3f4c] flex items-center justify-center mb-space-sm text-[#d8a867]"><span class="material-symbols-outlined text-[24px]">helicopter</span></div>
+                <h4 class="font-headline-sm text-base text-white mb-2">Helipad Access</h4>
+                <p class="font-body-sm text-body-sm text-[#a5a4ad] leading-relaxed">Aerial surveillance and rooftop helipad arrivals arranged for expansive multi-hectare Abuja compounds and sovereign mega-villas.</p>
+              </div>
+              <span class="font-label-uppercase text-[10px] text-[#d8a867] uppercase tracking-widest mt-space-md block font-semibold">Direct Rooftop</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="w-full overflow-hidden leading-none translate-y-[1px]">
+        <svg class="relative block w-full h-12 md:h-20 text-[#FCF9F4]" preserveAspectRatio="none" viewBox="0 0 1200 120">
+          <path d="M0,0 C200,90 450,10 650,80 C850,140 1050,40 1200,120 L1200,120 L0,120 Z" fill="currentColor"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 4: MAPS ===== -->
+    <section class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-space-lg pb-space-xl relative z-10 bg-[#FCF9F4]">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-md gap-space-sm">
+        <div>
+          <span class="font-label-uppercase text-[11px] text-[#815512] uppercase tracking-widest font-bold">Strategic Proximity</span>
+          <h2 class="font-headline-lg text-2xl md:text-3xl text-[#1c1c19]">Secretariat Enclaves &amp; Landmark Access</h2>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant max-w-md leading-relaxed">Situated at the absolute fulcrum of executive power and diplomacy in Nigeria's commercial and political capitals.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+        <!-- Lagos -->
+        <div class="lg:col-span-6 bg-white border border-[#E6E1D8] rounded-2xl p-space-md shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-space-sm">
+              <div>
+                <h3 class="font-headline-sm text-lg text-[#1c1c19]">Ikoyi Lagos Secretariat</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">14 Alexander Avenue, Ikoyi</p>
+              </div>
+              <span class="px-3 py-1 bg-[#FCF9F4] border border-[#E6E1D8] rounded-full font-label-uppercase text-[10px] text-[#815512] uppercase font-bold">Open 08:00 - 18:00</span>
+            </div>
+            <div class="w-full h-56 sm:h-64 rounded-xl bg-cover bg-center mb-space-md shadow-inner relative overflow-hidden" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwrrmyge7ujHCnbzJm8H7FXwqUkgjcFHdmu1hNYFBj4iPmFvW_w9Xvf0J9dzWpkyOfiGoCnc0l9PN80NB4CLb0l9Tg7hnyNNDz-A6m67FLiPCab5Aya4xSzjKqLq68yIaJVMpY9obqz8lDbzQDDzyBFdaLKn0gD72hnLja_MMN7m_au0cD_p-FM7YZwVcJ5BuV4HxpBgS_kOhh61qid6YgQuMLVHGHCN841xnfeXh2snrHvhdX-E3G')">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-md border border-[#E6E1D8] flex items-center gap-2 shadow-sm">
+                <span class="material-symbols-outlined text-[#815512] text-[18px]">near_me</span>
+                <span class="font-label-uppercase text-[10px] text-[#1c1c19] uppercase tracking-wider">Ikoyi Hub Navigation</span>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-space-xs pt-space-xs">
+            <div class="bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg p-3 text-center">
+              <p class="font-headline-sm text-lg text-[#815512] leading-tight font-bold">6 Min</p>
+              <p class="font-label-uppercase text-[9px] text-on-surface-variant uppercase mt-1">Banana Island Gate</p>
+            </div>
+            <div class="bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg p-3 text-center">
+              <p class="font-headline-sm text-lg text-[#1c1c19] leading-tight font-bold">12 Min</p>
+              <p class="font-label-uppercase text-[9px] text-on-surface-variant uppercase mt-1">Eko Atlantic Blvd</p>
+            </div>
+            <div class="bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg p-3 text-center">
+              <p class="font-headline-sm text-lg text-[#1c1c19] leading-tight font-bold">35 Min</p>
+              <p class="font-label-uppercase text-[9px] text-on-surface-variant uppercase mt-1">LOS Int'l Airport</p>
+            </div>
+          </div>
+        </div>
+        <!-- Abuja -->
+        <div class="lg:col-span-6 bg-white border border-[#E6E1D8] rounded-2xl p-space-md shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-space-sm">
+              <div>
+                <h3 class="font-headline-sm text-lg text-[#1c1c19]">Maitama Abuja Secretariat</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">22 Amazon Street, Maitama, Abuja</p>
+              </div>
+              <span class="px-3 py-1 bg-[#FCF9F4] border border-[#E6E1D8] rounded-full font-label-uppercase text-[10px] text-[#815512] uppercase font-bold">Diplomatic Zone</span>
+            </div>
+            <div class="w-full h-56 sm:h-64 rounded-xl bg-cover bg-center mb-space-md shadow-inner relative overflow-hidden" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBXnI6sOo4N7ZC23r4Mbzqu2GgJ0OIYwX8KwU5iMYsHxxpsQHYMyfdHkBsMJBxPtdigctqFRg8sUnDdmGvfclAEHmyi2_1jX6jaiSsHEfxI-7p04ojHt5nlTeIMOwS8jKwG8Vl-9pjt_CqFek-5gZzmtkO1EX2GL3mdC_vpauooy7LeJqYYhnRFibL_ZbYktqhuAG9x73OM_GKMgH_dJZ6AxYwRZB2L9KwJuwbr-2pZckYR7oESRC41')">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-md border border-[#E6E1D8] flex items-center gap-2 shadow-sm">
+                <span class="material-symbols-outlined text-[#815512] text-[18px]">near_me</span>
+                <span class="font-label-uppercase text-[10px] text-[#1c1c19] uppercase tracking-wider">Maitama Hub Navigation</span>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-space-xs pt-space-xs">
+            <div class="bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg p-3 text-center">
+              <p class="font-headline-sm text-lg text-[#815512] leading-tight font-bold">4 Min</p>
+              <p class="font-label-uppercase text-[9px] text-on-surface-variant uppercase mt-1">Transcorp Hilton</p>
+            </div>
+            <div class="bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg p-3 text-center">
+              <p class="font-headline-sm text-lg text-[#1c1c19] leading-tight font-bold">8 Min</p>
+              <p class="font-label-uppercase text-[9px] text-on-surface-variant uppercase mt-1">Aso Rock Villa Gate</p>
+            </div>
+            <div class="bg-[#FCF9F4] border border-[#E6E1D8] rounded-lg p-3 text-center">
+              <p class="font-headline-sm text-lg text-[#1c1c19] leading-tight font-bold">30 Min</p>
+              <p class="font-label-uppercase text-[9px] text-on-surface-variant uppercase mt-1">ABV Int'l Airport</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SEAL STRIP ===== -->
+    <section class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pb-space-xl bg-[#FCF9F4]">
+      <div class="bg-white border border-[#E6E1D8] rounded-xl p-space-md flex flex-wrap items-center justify-between gap-space-md text-on-surface-variant shadow-sm">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[#815512] text-[20px]">assured_workload</span>
+          <span class="font-label-uppercase text-[10px] uppercase tracking-wider text-[#1c1c19] font-bold">Licensed Institutional Brokerage • REDAN Accredited</span>
+        </div>
+        <div class="flex items-center gap-4 font-body-sm text-body-sm text-[#504538]">
+          <span>Anti-Money Laundering (SCUML) Compliant</span>
+          <span class="text-[#c8924b]">•</span>
+          <span>Bespoke Escrow Protocol (Lagos &amp; London)</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="w-full bg-[#121316] text-[#b4b3ba] border-t border-[#23242a]">
+  <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-space-xl pb-space-lg">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-space-xl pb-space-xl">
+      <div class="lg:col-span-4 flex flex-col">
+        <div class="flex items-center gap-3 mb-space-sm">
+          <img alt="FML Properties Logo" class="h-8 w-auto object-contain brightness-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMP3HgGQSlwC82iUW4YpeFUVfTL_Et1RScxDo7Z6YZ7n7KL2U48CWmlCdH7xr9enzTeQbyTtHSN4m_qZ4nZQk_2fKGYKaxwtXy-CLXLA-VyF1BrY1LawrI9ry947Wo64QJkW-ZiOw2uB2eufdA5ctRERfFR2rWOV5eu-ZXNk3JNeWC7I7637FVYYQO6vy0ke7SnnA3s0FofMgvfPgEmpEkQkWM9tRYGuKEo0gmFrQORuvde0CSTkED"/>
+          <div class="flex flex-col">
+            <span class="font-headline-sm text-white tracking-tight text-base sm:text-lg">FML PROPERTIES</span>
+            <span class="font-label-uppercase text-[10px] text-[#d8a867] uppercase">LAGOS • ABUJA</span>
+          </div>
+        </div>
+        <p class="font-body-md text-body-md text-[#9b99a3] mb-space-md max-w-sm leading-relaxed">Curators of extraordinary prime residences, waterfront penthouses, and sovereign land parcels across Nigeria's sovereign enclaves. Licensed institutional luxury real estate brokerage under REDAN.</p>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#1b1c21] border border-[#2b2c34] rounded-md max-w-fit">
+          <span class="material-symbols-outlined text-[#d8a867] text-[16px]">verified</span>
+          <span class="font-label-uppercase text-[10px] text-[#b4b3ba] uppercase tracking-widest">REDAN Licensed Brokerage</span>
+        </div>
+      </div>
+      <div class="lg:col-span-3 flex flex-col">
+        <h3 class="font-headline-sm text-base text-white mb-space-md font-semibold">Prime Enclaves</h3>
+        <ul class="space-y-space-sm font-body-sm text-body-sm text-[#9b99a3]">
+          <li><a class="hover:text-[#d8a867] transition-colors duration-200 block" href="pro.html">Banana Island, Ikoyi</a></li>
+          <li><a class="hover:text-[#d8a867] transition-colors duration-200 block" href="pro.html">Ikoyi Waterfront &amp; Old Ikoyi</a></li>
+          <li><a class="hover:text-[#d8a867] transition-colors duration-200 block" href="pro.html">Lekki Phase 1 Prime</a></li>
+          <li><a class="hover:text-[#d8a867] transition-colors duration-200 block" href="pro.html">Eko Atlantic City</a></li>
+          <li><a class="hover:text-[#d8a867] transition-colors duration-200 block" href="pro.html">Maitama &amp; Guzape, Abuja</a></li>
+          <li><a class="hover:text-[#d8a867] transition-colors duration-200 block" href="pro.html">Asokoro Diplomatic Zone</a></li>
+        </ul>
+      </div>
+      <div class="lg:col-span-2 flex flex-col">
+        <h3 class="font-headline-sm text-base text-white mb-space-md font-semibold">Private Offices</h3>
+        <div class="space-y-space-md font-body-sm text-body-sm text-[#9b99a3]">
+          <div><p class="font-label-uppercase text-[10px] text-[#d8a867] uppercase tracking-wider mb-1">Lagos Secretariat</p><p class="text-white">14 Alexander Avenue, Ikoyi, Lagos</p></div>
+          <div><p class="font-label-uppercase text-[10px] text-[#d8a867] uppercase tracking-wider mb-1">Abuja Secretariat</p><p class="text-white">22 Amazon Street, Maitama, Abuja</p></div>
+          <div class="pt-space-xs"><p class="text-white font-semibold text-sm">+234 803 000 8899</p><p class="text-[#d8a867]">concierge@fmlproperties.ng</p></div>
+        </div>
+      </div>
+      <div class="lg:col-span-3 flex flex-col">
+        <h3 class="font-headline-sm text-base text-white mb-space-sm font-semibold">Private Off-Market Briefs</h3>
+        <p class="font-body-sm text-body-sm text-[#9b99a3] mb-space-md leading-relaxed">Receive discreet architectural dossiers and unlisted off-plan allocations directly to your private office.</p>
+        <form class="flex flex-col gap-space-sm">
+          <div class="relative">
+            <input class="w-full bg-[#1c1d23] border border-[#2c2d36] rounded-lg px-4 py-3 font-body-sm text-body-sm text-white placeholder:text-[#6e6d78] focus:border-[#d8a867] focus:outline-none transition-colors duration-200" placeholder="Your official email address" type="email">
+            <button class="mt-space-sm w-full py-3 bg-[#c8924b] hover:bg-[#b07d39] text-white font-label-uppercase text-xs uppercase tracking-widest rounded-lg transition-all duration-300 font-bold" type="button">Request Access</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="pt-space-md border-t border-[#212228] flex flex-col sm:flex-row items-center justify-between gap-space-sm text-[#7e7d87] font-label-uppercase text-[10px]">
+      <p>© 2025 FML Properties Ltd. All rights reserved. Registered with REDAN.</p>
+      <div class="flex items-center gap-space-md">
+        <span>Institutional Wealth Advisory</span>
+        <span class="text-[#c8924b]">•</span>
+        <span>Bespoke Asset Management</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+  // Mobile Menu
+  (function() {
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const panel = document.getElementById('mobileMenuPanel');
+    const overlay = document.getElementById('mobileMenuOverlay');
+    const closeBtn = document.getElementById('closeMobileMenuBtn');
+
+    function openMenu() {
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (overlay) overlay.addEventListener('click', closeMenu);
+    panel.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  })();
+</script>
+
+</body>
+</html>
