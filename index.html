@@ -4,12 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>FML Properties — Sovereign Real Estate</title>
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-  <!-- Tailwind + config -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script>
     tailwind.config = {
@@ -128,7 +126,6 @@
       main > :last-child { margin-bottom: 0 !important; }
     }
     ::-webkit-scrollbar { display: none; }
-    /* video hero */
     .video-hero {
       position: absolute;
       top: 0;
@@ -138,7 +135,6 @@
       object-fit: cover;
       z-index: 0;
     }
-    /* mobile spacing */
     @media (max-width: 640px) {
       .hero-content { padding-top: 5rem; }
     }
@@ -169,7 +165,6 @@
         <span class="text-xs text-white font-medium tracking-wider">+234 803 000 8899</span>
         <span class="text-[10px] text-zinc-400 uppercase tracking-widest">Ikoyi, Lagos</span>
       </div>
-      <!-- Consultation Button -->
       <button id="consultBtn" class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md">
         <span class="material-symbols-outlined text-[18px] mr-1">support_agent</span> Consultation
       </button>
@@ -179,22 +174,17 @@
 
 <main class="w-full bg-background min-h-screen">
 
-  <!-- ========== HERO SECTION WITH VIDEO ========== -->
+  <!-- ========== HERO SECTION WITH AUTOPLAY VIDEO ========== -->
   <section class="relative w-full pt-32 pb-36 lg:pb-44 bg-[#121316] text-white overflow-hidden">
-    <!-- Video background with absolute positioning & fallback -->
-    <video class="video-hero" autoplay muted loop playsinline poster="">
+    <!-- AUTOPLAY VIDEO: muted + playsinline + autoplay + loop + preload=auto. Fallback JS in script below -->
+    <video id="heroVideo" class="video-hero" autoplay muted loop playsinline preload="auto" webkit-playsinline>
       <source src="FML.mp4" type="video/mp4">
-      <!-- Fallback for browsers that don't support video -->
-      <div class="absolute inset-0 bg-[#121316] flex items-center justify-center">
-        <span class="text-white/50 text-sm">Your browser does not support the video tag.</span>
-      </div>
+      Your browser does not support the video tag.
     </video>
-    <!-- scrim overlays -->
     <div class="absolute inset-0 z-0 bg-gradient-to-r from-[#121316] via-[#121316]/80 to-transparent"></div>
     <div class="absolute inset-0 z-0 bg-gradient-to-t from-[#121316] via-transparent to-[#121316]/50"></div>
 
     <div class="relative z-10 max-w-[1440px] mx-auto px-margin-mobile md:px-margin hero-content">
-      <!-- Overline & Status Badge -->
       <div class="flex items-center gap-3 mb-6 flex-wrap">
         <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10">
           <span class="w-2 h-2 rounded-full bg-[#C8924B] animate-pulse"></span>
@@ -202,7 +192,6 @@
         </span>
         <span class="text-xs text-zinc-400 uppercase tracking-widest hidden sm:inline-block">Lagos • Abuja • London Advisory</span>
       </div>
-      <!-- Main Headline -->
       <div class="max-w-3xl">
         <h1 class="font-display-hero text-4xl sm:text-5xl lg:text-[62px] text-white leading-[1.12] tracking-tight mb-6 font-normal">
           We Build Spaces <span class="italic font-normal text-[#e9c349]">That Last</span>
@@ -210,7 +199,6 @@
         <p class="font-body-lg text-base sm:text-lg text-zinc-300 max-w-2xl mb-8 leading-relaxed font-light">
           Curating bespoke waterfront mansions in Banana Island, skyline penthouses in Eko Atlantic, and sovereign estates in Maitama, Abuja with institutional diligence.
         </p>
-        <!-- CTA Buttons -->
         <div class="flex flex-wrap items-center gap-4 mb-12">
           <a href="pro.html" class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#C8924B] hover:bg-[#b5803d] text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-lg shadow-[#c8924b]/20">
             <span>Explore Prime Portfolio</span>
@@ -222,7 +210,6 @@
           </a>
         </div>
       </div>
-      <!-- Quick Search Filter Bar -->
       <div class="bg-[#1e1f24]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 lg:p-6 shadow-2xl max-w-5xl">
         <form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
           <div class="flex flex-col">
@@ -279,7 +266,6 @@
         </form>
       </div>
     </div>
-    <!-- WAVE TRANSITION -->
     <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
       <svg class="relative block w-full h-[60px] md:h-[90px] text-[#FCF9F4]" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,60 L1200,120 L0,120 Z" fill="currentColor"></path>
@@ -287,7 +273,7 @@
     </div>
   </section>
 
-  <!-- ========== FEATURED PROPERTIES (9 cards) ========== -->
+  <!-- ========== FEATURED PROPERTIES ========== -->
   <section class="w-full pt-10 pb-28 bg-[#FCF9F4] relative overflow-hidden">
     <div class="absolute top-0 right-0 w-96 h-96 opacity-10 pointer-events-none bg-[radial-gradient(#815512_1px,transparent_1px)] [background-size:16px_16px]"></div>
     <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin relative z-10">
@@ -604,7 +590,6 @@
         </article>
       </div>
 
-      <!-- Dots -->
       <div class="flex justify-center items-center gap-2 mt-10">
         <span class="w-2.5 h-2.5 rounded-full bg-[#C8924B]"></span>
         <span class="w-2 h-2 rounded-full bg-[#d4c4b3]"></span>
@@ -613,7 +598,7 @@
     </div>
   </section>
 
-  <!-- ========== WHY WE ARE THE BEST (ENHANCED) ========== -->
+  <!-- ========== WHY WE ARE THE BEST ========== -->
   <section class="w-full relative bg-[#121316] text-white py-28 overflow-hidden">
     <div class="absolute top-0 left-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
       <svg class="relative block w-full h-[60px] md:h-[80px] text-[#FCF9F4]" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
@@ -800,7 +785,7 @@
     </div>
   </section>
 
-  <!-- ========== CONTACT FORM SECTION ========== -->
+  <!-- ========== CONTACT FORM ========== -->
   <section class="w-full bg-[#FCF9F4] pb-24">
     <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
       <div class="bg-white rounded-3xl border border-[#ebdccb] shadow-[0_20px_60px_rgba(0,0,0,0.05)] p-8 md:p-12">
@@ -942,8 +927,57 @@
   </div>
 </div>
 
-<!-- ========== CONSULTATION MODAL SCRIPT ========== -->
+<!-- ========== SCRIPTS ========== -->
 <script>
+  // ---- FORCE VIDEO AUTOPLAY ----
+  (function() {
+    const video = document.getElementById('heroVideo');
+    if (!video) return;
+
+    // Ensure muted and playsinline for mobile autoplay policies
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    // Try to play as soon as possible
+    const playAttempt = () => {
+      const p = video.play();
+      if (p !== undefined) {
+        p.then(() => {
+          // autoplay started
+          console.log('Hero video autoplay started');
+        }).catch(err => {
+          console.warn('Autoplay was prevented:', err);
+          // Fallback: attach a one-time user interaction listener to start playback
+          const startOnInteraction = () => {
+            video.play().catch(e => console.warn('Play on interaction failed:', e));
+            document.removeEventListener('click', startOnInteraction);
+            document.removeEventListener('touchstart', startOnInteraction);
+            document.removeEventListener('keydown', startOnInteraction);
+          };
+          document.addEventListener('click', startOnInteraction, { once: true });
+          document.addEventListener('touchstart', startOnInteraction, { once: true });
+          document.addEventListener('keydown', startOnInteraction, { once: true });
+        });
+      }
+    };
+
+    // If the video is already loaded, try immediately
+    if (video.readyState >= 2) {
+      playAttempt();
+    } else {
+      video.addEventListener('loadeddata', playAttempt, { once: true });
+    }
+
+    // Also attempt on window load (covers cases where loadeddata already fired)
+    window.addEventListener('load', playAttempt);
+
+    // Some browsers need a small delay / canplay event
+    video.addEventListener('canplay', playAttempt, { once: true });
+  })();
+
+  // ---- CONSULTATION MODAL ----
   (function() {
     const modal = document.getElementById('consultModal');
     const openBtn = document.getElementById('consultBtn');
